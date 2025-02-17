@@ -1,0 +1,149 @@
+<template>
+  <div
+    :class="{
+      'noise-bg-dark': homeStore.isDarkMode,
+      'noise-bg-light': !homeStore.isDarkMode,
+    }"
+  >
+    <!-- Header Gradient -->
+    <img
+      src="@/assets/images/header-gradient.svg"
+      alt="Header Gradient"
+      class="header-gradient"
+    />
+    <div class="content-container">
+      <NavBar />
+
+      <v-app> <router-view /> </v-app>
+      <Footer />
+    </div>
+
+    <!-- SVG Noise Filter Definition -->
+    <svg id="texture">
+      <!-- White Background to ensure a clean base -->
+
+      <!-- Noise Filter -->
+      <filter id="noiseFilter">
+        <feTurbulence
+          type="fractalNoise"
+          baseFrequency="0.9"
+          numOctaves="3"
+          stitchTiles="stitch"
+        />
+        <feColorMatrix type="saturate" values="0"></feColorMatrix>
+      </filter>
+
+      <!-- Apply Noise Filter -->
+    </svg>
+    <img
+      src="@/assets/images/footer-gradient.svg"
+      alt="Footer Gradient"
+      class="footer-gradient"
+    />
+  </div>
+</template>
+<script setup>
+  import { useHomeStore } from "@/stores/useHomeStore";
+
+  import NavBar from "@/components/NavBar.vue";
+  import Footer from "./components/Footer.vue";
+
+  const homeStore = useHomeStore();
+</script>
+<style>
+  /* Light Mode */
+  .noise-bg-light {
+    position: relative;
+    width: 100%;
+    min-height: 100vh; /* ✅ Allow content to extend */
+    overflow-y: auto; /* ✅ Enable scrolling */
+    background: linear-gradient(
+      to bottom,
+      rgba(255, 255, 255, 0.382),
+      rgb(255, 255, 255),
+      rgba(255, 255, 255, 0.956)
+    );
+  }
+  /* Dark Mode */
+  .noise-bg-dark {
+    position: relative;
+    width: 100%;
+    min-height: 100vh; /* ✅ Allow content to extend */
+    overflow-y: auto; /* ✅ Enable scrolling */
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.918), rgb(0, 0, 0));
+  }
+  /* Light Mode Noise */
+  .noise-bg-light::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    pointer-events: none;
+    min-height: 100vh; /* Allow content to expand */
+    overflow: auto; /* Allow scrolling */
+    /* Load noise as a background */
+    background: url("https://grainy-gradients.vercel.app/noise.svg"); /* External Noise */
+
+    /* Blend the noise with the background */
+    mix-blend-mode: multiply;
+
+    /* Adjust contrast and brightness */
+    filter: contrast(180%) brightness(120%);
+    opacity: 0.2; /* Ensure visibility */
+    z-index: -1;
+  }
+
+  /* Dark Mode Noise */
+  .noise-bg-dark::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    pointer-events: none;
+    min-height: 100vh; /* Allow content to expand */
+    overflow: auto; /* Allow scrolling */
+    /* Load noise as a background */
+    background: url("https://grainy-gradients.vercel.app/noise.svg"); /* External Noise */
+
+    /* Darker noise effect */
+    mix-blend-mode: screen;
+
+    /* Adjust contrast and brightness */
+    filter: contrast(250%) brightness(50%);
+    opacity: 0.15; /* Adjust opacity for subtle effect */
+    z-index: -1;
+  }
+
+  .header-gradient {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 700px; /* Adjust height */
+    object-fit: cover;
+    pointer-events: none;
+  }
+  .footer-gradient {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 700px; /* Adjust height */
+    object-fit: cover;
+    pointer-events: none;
+  }
+  .content-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center horizonta7y */
+    display: block; /* ✅ Allow normal flow */
+
+    max-width: 740px; /* Prevent it from stretching too much */
+    margin: 0 auto; /* Center with left and right margin */
+    min-height: 100vh; /* ✅ Ensure it can grow */
+    margin-top: 160px;
+    padding: 20px; /* Optional padding */
+  }
+</style>
