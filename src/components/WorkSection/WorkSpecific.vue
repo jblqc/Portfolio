@@ -22,25 +22,34 @@
           variant="display-2"
           fontWeight="bold"
           :gradient="'linear-gradient(90deg, #5b7fff, #f44f8a)'"
-          class="tracking-wider project-title"
-        />
-        <Text
-          :text="project.caption"
-          variant="subtitle-1"
-          fontWeight="600"
-          :color="'gray'"
-          class="project-caption"
+          class="fraunces"
         />
       </v-col>
     </v-row>
 
+    <v-row>
+      <v-col class="text-right" cols="">
+        <Text text="───────── ౨" variant="subtitle-1" :color="'gray'" />
+      </v-col>
+      <v-col class="text-center" cols="4">
+        <Text
+          :text="project.caption"
+          variant="subtitle-1"
+          fontWeight="600"
+          :color="'black'"
+        />
+      </v-col>
+      <v-col class="text-left" cols="">
+        <Text text="ৎ ─────────" variant="subtitle-1" :color="'gray'" />
+      </v-col>
+    </v-row>
     <v-row justify="center">
       <v-col cols="8">
         <Text
-          :text="projectDetails.longDescription1"
-          variant="caption"
+          :text="projectDetails.long_description1"
+          variant="subtitle-1"
           fontWeight="500"
-          :color="'gray'"
+          :color="'black'"
           class="description"
         />
         <Text
@@ -52,7 +61,6 @@
         />
       </v-col>
     </v-row>
-
     <v-row justify="center">
       <v-col cols="8" class="details-card">
         <div
@@ -60,12 +68,19 @@
           v-for="detail in projectDetailsArray"
           :key="detail.label"
         >
-          <span class="label">{{ detail.label }}:</span>
+          <Text
+            :text="detail.label"
+            variant="caption"
+            fontWeight="600"
+            :color="'gray'"
+            class="detail-label"
+          />
           <Text
             :text="detail.text"
             variant="caption"
             fontWeight="600"
             :color="'black'"
+            class="detail-text"
           />
         </div>
       </v-col>
@@ -84,31 +99,30 @@
         </div>
       </div>
     </div>
-    <v-row>
-      <v-col cols="8">
-        <div class="image-row">
-          <div
-            v-for="(imageUrl, index) in designOneImages"
-            :key="index"
-            class="design1"
-          >
-            <PictureCard :image="imageUrl" />
-          </div>
-          <div
-            v-for="(imageUrl, index) in designTwoImages"
-            :key="index"
-            class="design2"
-          >
-            <PictureCard :image="imageUrl" />
-          </div>
+    <v-row style="justify-content: space-evenly">
+      <div class="image-row">
+        <div
+          v-for="(imageUrl, index) in designOneImages"
+          :key="index"
+          class="design1"
+        >
+          <PictureCard :image="imageUrl" />
         </div>
-      </v-col>
+      </div>
+    </v-row>
+    <v-row style="justify-content: space-evenly">
+      <div class="">
+        <div
+          v-for="(imageUrl, index) in designTwoImages"
+          :key="index"
+          class="design2"
+        >
+          <PictureCard :image="imageUrl" />
+        </div>
+      </div>
     </v-row>
 
-    <FlickingCarousel
-      :images="images"
-      :options="{ align: 'center', circular: true, passive: true }"
-    >
+    <FlickingCarousel :images="images">
       <template v-slot:default="{ image }">
         <div v-for="(image, index) in images" :key="index" class="panel">
           <img :src="image" alt="Carousel Image" class="carousel-image" />
@@ -161,9 +175,9 @@
     workStore.workSpecific.find((w) => w.project_id === project.value?.id)
   );
   const projectDetailsArray = computed(() => [
-    { label: "Type", text: projectDetails.value?.type },
-    { label: "Role", text: projectDetails.value?.role },
-    { label: "Timeline", text: projectDetails.value?.timeline },
+    { label: "TYPE", text: projectDetails.value?.type },
+    { label: "ROLE", text: projectDetails.value?.role },
+    { label: "TIMELINE", text: projectDetails.value?.timeline },
   ]);
 
   // Extract dominant color from the image and set it as shadow color
@@ -379,11 +393,7 @@
   .work-details {
     padding: 20px;
   }
-  .image-row {
-    display: flex; /* Use flexbox for layout */
-    justify-content: space-between; /* Space between the images */
-    flex-wrap: wrap;
-  }
+
   .project-logo-container {
     display: flex;
     justify-content: center;
@@ -393,16 +403,17 @@
     /* background-color: #ffff; */
   }
   .image-row {
-    display: flex; /* Use flexbox for layout */
-    justify-content: space-between; /* Space between the images */
-    flex-wrap: wrap; /* Allow wrapping if there are more than two images */
+    display: flex;
+    flex-wrap: wrap;
+    width: 75%;
+    gap: 60px; /* Adjust spacing as needed */
   }
 
   .design1 img,
   .design2 img {
     width: 100%; /* Make the image take the full width of the container */
     height: auto; /* Maintain aspect ratio */
-    object-fit: cover; /* Cover the container while maintaining aspect ratio */
+    object-fit: cover;
   }
   .design1 {
     box-shadow: 6px 6px 12px -6px rgb(0, 0, 0, 0.1),
@@ -416,16 +427,27 @@
   }
 
   .design2 {
-    box-shadow: 0 4px 8px rgba(0, 0, 255, 0.5);
+    box-shadow: 6px 6px 12px -6px rgb(0, 0, 0, 0.1),
+      24px 24px 30px -6px rgb(0, 0, 0, 0.2);
+    width: 100%; /* Set the width of the container */
+    height: 30%; /* Set a fixed height or use a percentage */
+    overflow: hidden; /* Hide any overflow */
+    position: relative;
+    border-radius: 20px;
+    flex: 1;
+    margin-top: 5%;
   }
   .project-logo {
     max-width: 120px;
     border-radius: 18px;
     transition: all 0.3s ease-in-out;
+    background-color: #fff;
   }
   .project-title {
-    font-size: 36px;
-    font-weight: bold;
+    font-family: "Fraunces", serif;
+    font-size: 50px;
+    font-weight: 300;
+    line-height: 50px;
   }
 
   .project-caption {
@@ -435,15 +457,21 @@
   }
 
   .details-card {
-    background: #f5f5f5;
+    background: linear-gradient(
+      90deg,
+      rgba(255, 233, 244, 0.4) 0%,
+      rgba(234, 243, 255, 0.7) 100%
+    );
     padding: 20px;
     border-radius: 10px;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
   }
 
   .detail {
     font-size: 16px;
     margin-bottom: 8px;
+    display: flex;
+    flex-direction: column; /* Ensures label is always above text */
+    gap: 4px;
   }
 
   .label {

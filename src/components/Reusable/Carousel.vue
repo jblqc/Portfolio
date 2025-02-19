@@ -1,54 +1,75 @@
 <script setup>
-  import Flicking, { EVENTS } from "@egjs/vue3-flicking";
-  import "@egjs/vue3-flicking/dist/flicking.css";
-  import { defineProps, onMounted, ref } from "vue";
+  import { Swiper, SwiperSlide } from "swiper/vue";
+  import "swiper/css";
+  import "swiper/css/effect-coverflow";
+  import "swiper/css/navigation";
+  import "swiper/css/pagination";
+  import { EffectCoverflow, Navigation, Pagination } from "swiper/modules";
+  import { defineProps, computed } from "vue";
 
   const props = defineProps({
     images: {
       type: Array,
       required: true,
     },
-    options: {
-      type: Object,
-      default: () => ({
-        align: "center",
-        circular: true,
-        bound: true,
-        moveType: { type: "snap", count: 1 }, // Ensures snapping to each panel
-      }),
-    },
   });
-
-  const flickingRef = ref(null);
-
-  onMounted(() => {
-    flickingRef.value.on(EVENTS.MOVE_END, () => {
-      console.log("Carousel moved");
-    });
-  });
+  const safeImages = computed(() => props.images || []);
 </script>
 
 <template>
-  <Flicking ref="flickingRef" :options="options">
-    <div v-for="(image, index) in images" :key="index" class="panel">
-      <img :src="image" alt="Carousel Image" class="carousel-image" />
-    </div>
-  </Flicking>
+  <div class="carousel-wrapper">
+    <Swiper
+      :modules="[EffectCoverflow, Navigation, Pagination]"
+      effect="coverflow"
+      :grabCursor="true"
+      :centeredSlides="true"
+      :slidesPerView="1"
+      :initialSlide="Math.floor(safeImages.length / 2)"
+      :coverflowEffect="{
+        rotate: 30, // Rotation angle (3D perspective)
+        stretch: 0, // Space between slides (set to 0 for auto-spacing)
+        depth: 200, // Depth of effect (controls 3D perspective)
+        modifier: 1, // Effect strength
+        slideShadows: true, // Shadows for more depth effect
+      }"
+      :navigation="true"
+      :pagination="{ clickable: true }"
+      class="swiper-container"
+    >
+      <SwiperSlide
+        v-for="(image, index) in safeImages"
+        :key="index"
+        class="swiper-slide"
+      >
+        <img :src="image" class="carousel-image" />
+      </SwiperSlide>
+    </Swiper>
+  </div>
 </template>
 
 <style scoped>
-  .panel {
+  .carousel-wrapper {
+    width: 100%;
     display: flex;
     justify-content: center;
-    align-items: center;
-    width: 100%; /* Ensure this matches the carousel's width */
-    height: 300px; /* Set a fixed height for all panels */
+    overflow: visible; /* Ensures slides are visible */
+  }
+
+  .swiper-container {
+    width: 100%;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    overflow: visible !important; /* Ensures the side images show */
+  }
+
+  .swiper-slide {
+    width: 100%; /* Adjust size of each slide */
+    transform: perspective(120px); /* 3D effect */
   }
 
   .carousel-image {
-    width: auto; /* Adjust width automatically */
-    max-width: 100%; /* Ensure image does not exceed panel width */
-    height: 100%; /* Fixed height to match panel */
-    object-fit: cover; /* Cover ensures the image covers the panel, might crop */
+    width: 100%;
+    border-radius: 15px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
   }
 </style>
