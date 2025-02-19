@@ -13,6 +13,7 @@
     "@heroicons/vue": "^2.2.0",
     "@supabase/supabase-js": "^2.48.1",
     "colorthief": "^2.6.0",
+    "image-size": "^1.2.0",
     "vite-plugin-vuetify": "^2.0.3",
     "vue": "^3.5.13",
     "vue-carousel-3d": "^1.0.1",

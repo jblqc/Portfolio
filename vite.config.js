@@ -4,10 +4,7 @@ import vuetify from "vite-plugin-vuetify"; // ✅ Import Vuetify plugin
 import path from "path";
 
 export default defineConfig({
-  plugins: [
-    vue(),
-    vuetify({ autoImport: true }), // ✅ Enables automatic Vuetify component imports
-  ],
+  plugins: [vue(), vuetify({ autoImport: true })],
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "src"), // Ensures '@/components' works correctly
