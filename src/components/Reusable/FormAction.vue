@@ -119,21 +119,9 @@
         isSaving.value = true; // ✅ Set saving state to disable button
         Swal.close(); // ✅ Close modal immediately after confirming
 
-        // ✅ Show a loading UI (optional)
-        Swal.fire({
-          title: "Saving...",
-          text: "Please wait while we process your request.",
-          allowOutsideClick: false,
-          didOpen: () => {
-            Swal.showLoading(); // Show loading spinner
-          },
-        });
-
-        await new Promise((resolve) => setTimeout(resolve, 2000)); // Simulate saving process
-
+      
         emit("save"); // ✅ Proceed with actual saving
 
-        Swal.close(); // ✅ Close loading UI after saving
         isSaving.value = false; // ✅ Reset saving state after completion
       }
     } catch (error) {
