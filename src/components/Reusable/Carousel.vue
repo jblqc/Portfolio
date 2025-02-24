@@ -17,33 +17,37 @@
 </script>
 
 <template>
-  <div class="carousel-wrapper">
-    <Swiper
-      :modules="[EffectCoverflow, Navigation, Pagination]"
-      effect="coverflow"
-      :grabCursor="true"
-      :centeredSlides="true"
-      :slidesPerView="1"
-      :initialSlide="Math.floor(safeImages.length / 2)"
-      :coverflowEffect="{
-        rotate: 30, // Rotation angle (3D perspective)
-        stretch: 0, // Space between slides (set to 0 for auto-spacing)
-        depth: 200, // Depth of effect (controls 3D perspective)
-        modifier: 1, // Effect strength
-        slideShadows: true, // Shadows for more depth effect
-      }"
-      :navigation="true"
-      :pagination="{ clickable: true }"
-      class="swiper-container"
-    >
-      <SwiperSlide
-        v-for="(image, index) in safeImages"
-        :key="index"
-        class="swiper-slide"
+  <div>
+    <div class="carousel-wrapper">
+      <Swiper
+        :modules="[EffectCoverflow, Navigation, Pagination]"
+        effect="coverflow"
+        :grabCursor="true"
+        :centeredSlides="true"
+        :slidesPerView="1"
+        :initialSlide="
+          safeImages.length === 2 ? 0 : Math.floor(safeImages.length / 2)
+        "
+        :coverflowEffect="{
+          rotate: 30, // Rotation angle (3D perspective)
+          stretch: 500, // Space between slides (set to 0 for auto-spacing)
+          depth: 200, // Depth of effect (controls 3D perspective)
+          modifier: 1, // Effect strength
+          slideShadows: true, // Shadows for more depth effect
+        }"
+        :navigation="true"
+        :pagination="{ clickable: true }"
+        class="swiper-container"
       >
-        <img :src="image" class="carousel-image" />
-      </SwiperSlide>
-    </Swiper>
+        <SwiperSlide
+          v-for="(image, index) in safeImages"
+          :key="index"
+          class="swiper-slide"
+        >
+          <img :src="image" class="carousel-image" />
+        </SwiperSlide>
+      </Swiper>
+    </div>
   </div>
 </template>
 

@@ -64,6 +64,7 @@
               'logo-img-cat': project.id === 4,
               'logo-img-fade': project.id === 13,
               'logo-img-f4s': project.id === 10,
+              'logo-img-black': project.id === 6,
             }"
           />
         </div>
@@ -225,10 +226,7 @@
     color: white !important;
     font-weight: bold;
   } /* Section Background */
-  .custom-font {
-    font-family: "Fraunces", serif;
-    font-size: 56px;
-  }
+
   /* Decorative Divider */
   .divider {
     display: flex;

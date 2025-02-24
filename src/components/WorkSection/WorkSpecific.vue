@@ -1,125 +1,216 @@
 <template>
   <div v-if="isDataLoaded">
-    <!-- Simplified structure by removing redundant divs and ensuring proper Vue component usage -->
-    <v-row justify="center">
-      <v-col cols="12" class="text-center">
-        <div
-          class="project-logo-container"
-          :class="{ 'dark-mode-card': isDarkMode }"
-        >
-          <img
-            crossOrigin="anonymous"
-            ref="projectImage"
-            :src="project.image"
-            :alt="project.title"
-            class="project-logo"
-            @load="extractShadowColor"
-            :style="{ boxShadow: `0px 10px 30px ${imageShadowColor}` }"
-          />
-        </div>
-        <Text
-          :text="project.title"
-          variant="display-2"
-          fontWeight="bold"
-          :gradient="'linear-gradient(90deg, #5b7fff, #f44f8a)'"
-          class="fraunces"
-        />
-      </v-col>
-    </v-row>
+    <v-row justify="center" class="mb-5">
+      <v-row justify="center">
+        <v-col cols="7">
+          <v-row justify="center">
+            <v-col cols="12" class="text-center">
+              <div
+                class="project-logo-container"
+                :class="{
+                  'dark-mode-card': isDarkMode,
+                }"
+              >
+                <img
+                  crossOrigin="anonymous"
+                  ref="projectImage"
+                  :src="project.image"
+                  :alt="project.title"
+                  class="project-logo"
+                  :class="{
+                    'project-logo2': project.id === 13,
+                  }"
+                  @load="extractShadowColor"
+                  :style="{ boxShadow: `0px 10px 30px ${imageShadowColor}` }"
+                />
+              </div>
 
-    <v-row>
-      <v-col class="text-right" cols="">
-        <Text text="───────── ౨" variant="subtitle-1" :color="'gray'" />
-      </v-col>
-      <v-col class="text-center" cols="4">
-        <Text
-          :text="project.caption"
-          variant="subtitle-1"
-          fontWeight="600"
-          :color="'black'"
-        />
-      </v-col>
-      <v-col class="text-left" cols="">
-        <Text text="ৎ ─────────" variant="subtitle-1" :color="'gray'" />
-      </v-col>
-    </v-row>
-    <v-row justify="center">
-      <v-col cols="8">
-        <Text
-          :text="projectDetails.long_description1"
-          variant="subtitle-1"
-          fontWeight="500"
-          :color="'black'"
-          class="description"
-        />
-        <Text
-          :text="projectDetails.longDescription2"
-          variant="caption"
-          fontWeight="500"
-          :color="'gray'"
-          class="description"
-        />
-      </v-col>
-    </v-row>
-    <v-row justify="center">
-      <v-col cols="8" class="details-card">
-        <div
-          class="detail"
-          v-for="detail in projectDetailsArray"
-          :key="detail.label"
-        >
-          <Text
-            :text="detail.label"
-            variant="caption"
-            fontWeight="600"
-            :color="'gray'"
-            class="detail-label"
-          />
-          <Text
-            :text="detail.text"
-            variant="caption"
-            fontWeight="600"
-            :color="'black'"
-            class="detail-text"
-          />
-        </div>
-      </v-col>
-    </v-row>
+              <Text
+                :text="project.title"
+                variant="display-2"
+                fontWeight="500"
+                class="fraunces"
+              />
+            </v-col>
+          </v-row>
 
-    <div v-if="cleanProjectLinks.length > 0">
-      <div v-for="(linkObj, index) in cleanProjectLinks" :key="index">
-        <Text
-          :text="linkObj.text"
-          variant="caption"
-          fontWeight="600"
-          :color="'black'"
+          <v-row class="mb-n2">
+            <v-col class="text-right d-none d-md-flex">
+              <Text text="───────── ౨" variant="subtitle-1" :color="'gray'" />
+            </v-col>
+            <v-col class="text-center">
+              <Text
+                :text="project.caption"
+                variant="subtitle-1"
+                fontWeight="700"
+                :color="'black'"
+              />
+            </v-col>
+            <v-col class="text-left d-none d-md-flex">
+              <Text text="ৎ ─────────" variant="subtitle-1" :color="'gray'" />
+            </v-col>
+          </v-row>
+          <v-row class="justify-center"> <BackButton @click="goBack" /> </v-row>
+
+          <v-row class="justify-center">
+            <v-col cols="12" class="">
+              <Text
+                :text="projectDetails.long_description1"
+                variant="subtitle-1"
+                fontWeight="400"
+                :color="'black'"
+                class="description"
+              />
+              <Text
+                :text="projectDetails.long_description2"
+                variant="subtitle-1"
+                fontWeight="400"
+                :color="'black'"
+                class="description"
+              />
+              <v-container class="details-card mt-3 mb-3">
+                <v-row no-gutters>
+                  <v-col
+                    v-for="(detail, index) in projectDetailsArray"
+                    :key="index"
+                    cols="4"
+                    class="text-center"
+                  >
+                    <div class="detail">
+                      <Text
+                        :text="detail.label"
+                        variant="caption"
+                        fontWeight="600"
+                        :color="'gray'"
+                        class="detail-label"
+                      />
+                      <Text
+                        :text="detail.text"
+                        variant="caption"
+                        fontWeight="600"
+                        :color="'black'"
+                        class="detail-text"
+                      />
+                    </div>
+                  </v-col>
+                </v-row>
+              </v-container>
+              <Text
+                v-if="cleanProjectLinks.length > 0"
+                text="LINKS"
+                variant="caption"
+                fontWeight="600"
+                :color="'gray'"
+                class="ml-3"
+              />
+              <div v-if="cleanProjectLinks.length > 0" class="mt-3">
+                <v-col
+                  v-for="(linkObj, index) in cleanProjectLinks"
+                  :key="index"
+                >
+                  <div class="mt-n4" style="display: flex; align-items: center">
+                    <Text
+                      :text="linkObj.text"
+                      variant="subtitle-1"
+                      fontWeight="600"
+                      :color="'black'"
+                    />
+                    <div
+                      class="mt-1"
+                      @click="openLink(linkObj.url)"
+                      style="display: flex; align-items: center"
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 20 20"
+                        fill="black"
+                        width="20"
+                      >
+                        <path
+                          fill-rule="evenodd"
+                          d="M5.22 14.78a.75.75 0 0 0 1.06 0l7.22-7.22v5.69a.75.75 0 0 0 1.5 0v-7.5a.75.75 0 0 0-.75-.75h-7.5a.75.75 0 0 0 0 1.5h5.69l-7.22 7.22a.75.75 0 0 0 0 1.06Z"
+                          clip-rule="evenodd"
+                        />
+                      </svg>
+                    </div>
+                  </div>
+                </v-col>
+              </div>
+              <v-row
+                class="mt-5"
+                v-if="project.title === 'F4S: Fingerprint for Success'"
+              >
+                <img
+                  src="@/assets/images/project-specific-image/f4s1.png"
+                  alt="Project GIF"
+                  class="styled-image2"
+                />
+              </v-row>
+            </v-col>
+          </v-row> </v-col
+      ></v-row>
+
+      <v-row
+        justify="center"
+        class="mt-5"
+        v-if="project.id === 1 || project.id === 11"
+      >
+        <Text text="Watch the Video" variant="h5" fontWeight="600" />
+
+        <v-col cols="12" class="text-center">
+          <iframe
+            width="560"
+            height="315"
+            :src="
+              project.id === 1
+                ? 'https://drive.google.com/file/d/10t7K4qqqmtNaUIH439ZJW35s2tDcK9s1/preview'
+                : 'https://www.youtube.com/embed/4wkGtHNvngI'
+            "
+            frameborder="0"
+            allowfullscreen
+            class="design3"
+          ></iframe>
+        </v-col>
+      </v-row>
+      <v-row v-if="designOneImages.length > 0" justify="center ">
+        <v-col cols="12">
+          <v-row justify="center" class="design-row">
+            <v-col
+              v-for="(imageUrl, index) in designOneImages"
+              :key="index"
+              cols="5"
+              class="d-flex justify-center design1"
+            >
+              <PictureCard :image="imageUrl" />
+            </v-col>
+          </v-row>
+        </v-col>
+      </v-row>
+      <v-row justify="center" v-if="project.title === 'Good Food'">
+        <img
+          src="@/assets/images/project-specific-image/goodfoodbg.svg"
+          alt="Loading..."
+          class="my-n2"
         />
-        <div class="go-button" @click="openLink(linkObj.url)">
-          <!-- SVG code omitted for brevity -->
+      </v-row>
+      <v-row
+        style="justify-content: space-evenly"
+        v-if="designTwoImages.length > 0"
+      >
+        <div>
+          <div
+            v-for="(imageUrl, index) in designTwoImages"
+            :key="index"
+            class="design2"
+            :class="{
+              'dark-mode-card': isDarkMode,
+              'no-box-shadow': project.id === 9,
+            }"
+          >
+            <PictureCard :image="imageUrl" />
+          </div>
         </div>
-      </div>
-    </div>
-    <v-row style="justify-content: space-evenly">
-      <div class="image-row">
-        <div
-          v-for="(imageUrl, index) in designOneImages"
-          :key="index"
-          class="design1"
-        >
-          <PictureCard :image="imageUrl" />
-        </div>
-      </div>
-    </v-row>
-    <v-row style="justify-content: space-evenly">
-      <div class="">
-        <div
-          v-for="(imageUrl, index) in designTwoImages"
-          :key="index"
-          class="design2"
-        >
-          <PictureCard :image="imageUrl" />
-        </div>
-      </div>
+      </v-row>
     </v-row>
 
     <FlickingCarousel :images="images">
@@ -129,8 +220,19 @@
         </div>
       </template>
     </FlickingCarousel>
+    <v-row class="mt-5" v-if="project.title === 'NecessiPick'">
+      <img
+        src="@/assets/images/project-specific-image/nes.png"
+        alt="Project GIF"
+        width="1100"
+        height="285"
+        class="styled-image"
+      />
+    </v-row>
   </div>
-  <div v-else>Loading...</div>
+  <v-row justify="center" v-else>
+    <img src="@/assets/images/loader.gif" alt="Loading..." class="loader-gif" />
+  </v-row>
 </template>
 
 <script setup>
@@ -138,6 +240,10 @@
   import { useRoute } from "vue-router";
   import { useWorkStore } from "@/stores/useWorkStore";
   import { useHomeStore } from "@/stores/useHomeStore";
+  import { useRouter } from "vue-router";
+
+  import BackButton from "../Reusable/BackButton.vue";
+
   import sizeOf from "image-size"; // Import the image-size library
 
   import Text from "../Reusable/Text.vue";
@@ -148,6 +254,7 @@
   const workStore = useWorkStore();
   const projectImage = ref(null);
   const homeStore = useHomeStore();
+  const router = useRouter(); // Initialize router
 
   const imageShadowColor = ref("rgba(0, 0, 0, 0.15)"); // Default shadow
   const currentProjectID = computed(() => parseInt(route.params.id));
@@ -158,18 +265,86 @@
   const isDataLoaded = ref(false);
   const isDarkMode = computed(() => homeStore.isDarkMode);
   const openLink = (url) => window.open(url, "_blank");
+  const projectLinkTexts = {
+    1: ["Springer - Our Published Paper", "NecessiPick - Compare Products"],
+    2: ["Custom Link 1 for Project 2", "Custom Link 2 for Project 2"],
+    5: ["Good Food - Create your own Recipe"],
+    6: ["Promotional Post - View the Template"],
+    11: [
+      "MakaTurismo - View the City of Makati",
+      "Makati LGU kicks off 'Visit a Better Makati' tourism campaign",
+    ],
+    14: ["Love Laguna - View the City of Laguna"],
+    2: ["Vincafe - A modern take on branding"],
+    3: ["NEON - All about Modernity", " View the Concept"],
+    4: [" View on Behance"],
+    9: [" View on Behance"],
+    10: [" View on Behance"],
+    13: [" View on Behance"],
+  };
+
   const exclusionList = [
+    "cjp1.png",
+    "cjp2.png",
+    "cjp3.png",
+    "cjp5.png",
+
     "nes1.png",
     "nes2.png",
     "nes3.png",
     "np3.png",
+    "ll1.png",
+    "ll10.png",
+    "ll9.png",
+    "ll5.png",
+    "ll6.png",
+    "ll7.png",
+    "ll8.png",
+    "np3.png",
+    "gf1.png",
+    "gf2.png",
+    "gf7.png",
+    "gf5.png",
+    "gf6.png",
+    "np3.png",
     "np4.png",
+    "sp1.png",
+    "sp2.png",
+    "sp3.png",
+    "mak1.png",
+    "mak2.png",
+    "mak6.png",
+    "mak9.png",
+    "mak7.png",
+    "mak8.png",
+    "mak10.png",
+    "mak11.png",
+    "fid1.png",
+    "e1.png",
+    "e4.png",
+    "e6.png",
+    "sm1.png",
+    "sm2.png",
+    "fl1.png",
+    "fl2.png",
+    "neon1.png",
+    "neon2.png",
+    "neon3.png",
+    "neon4.png",
+    "neon5.png",
+    "mabuhay1.png",
+    "mabuhay2.png",
+    "mabuhay4.png",
+    "mabuhay3.png",
+    "mabuhay8.png",
   ];
 
   const project = computed(() =>
     workStore.projects.find((p) => p.id === parseInt(route.params.id))
   );
-
+  const goBack = () => {
+    router.push("/work"); // Navigate to /work
+  };
   // Fetch project details from workSpecific
   const projectDetails = computed(() =>
     workStore.workSpecific.find((w) => w.project_id === project.value?.id)
@@ -248,20 +423,22 @@
       };
     }
   };
-  const projectLinkTexts = {
-    1: ["Springer - Our Published Paper", "NecessiPick - Compare Products"],
-    2: ["Custom Link 1 for Project 2", "Custom Link 2 for Project 2"],
-  };
 
+  // ... existing code ...
   const cleanProjectLinks = computed(() => {
     if (!project.value?.link) return [];
     const links = project.value.link.replace(/[()]/g, "").split(",");
+
+    // Ensure the project ID is valid and exists in projectLinkTexts
+    const projectId = project.value.id;
+    const projectTexts = projectLinkTexts[projectId] || []; // Default to empty array if ID not found
+
     return links.map((link, index) => ({
       url: link.trim(),
-      text: projectLinkTexts[project.value.id][index] || link.trim(),
+      text: projectTexts[index] || link.trim(), // Use the corresponding text or fallback to the link
     }));
   });
-
+  // ... existing code ...
   watch(currentProjectID, (newProjectID) => {
     const projectImages = workStore.projectImages[newProjectID];
     if (projectImages && projectImages.length > 0) {
@@ -399,8 +576,22 @@
     justify-content: center;
     align-items: center;
     border-radius: 20px;
-    padding: 15px;
+    padding: 25px;
     /* background-color: #ffff; */
+  }
+  .project-logo {
+    border-radius: 15px;
+    transition: all 0.3s ease-in-out;
+    background-color: #fff;
+    max-height: 110px;
+    max-width: 190px;
+  }
+  .project-logo2 {
+    border-radius: 15px;
+    transition: all 0.3s ease-in-out;
+    background-color: #000000;
+    max-height: 110px;
+    max-width: 190px;
   }
   .image-row {
     display: flex;
@@ -411,58 +602,62 @@
 
   .design1 img,
   .design2 img {
-    width: 100%; /* Make the image take the full width of the container */
-    height: auto; /* Maintain aspect ratio */
+    width: 100%;
+    height: auto;
     object-fit: cover;
   }
+
   .design1 {
     box-shadow: 6px 6px 12px -6px rgb(0, 0, 0, 0.1),
       24px 24px 30px -6px rgb(0, 0, 0, 0.2);
-    width: 55%; /* Set the width of the container */
-    height: 500px; /* Set a fixed height or use a percentage */
+
     overflow: hidden; /* Hide any overflow */
-    position: relative;
+
     border-radius: 20px;
-    flex: 1;
   }
 
   .design2 {
     box-shadow: 6px 6px 12px -6px rgb(0, 0, 0, 0.1),
       24px 24px 30px -6px rgb(0, 0, 0, 0.2);
-    width: 100%; /* Set the width of the container */
-    height: 30%; /* Set a fixed height or use a percentage */
+    height: auto;
     overflow: hidden; /* Hide any overflow */
     position: relative;
     border-radius: 20px;
     flex: 1;
     margin-top: 5%;
   }
-  .project-logo {
-    max-width: 120px;
-    border-radius: 18px;
-    transition: all 0.3s ease-in-out;
-    background-color: #fff;
+  .design3 {
+    overflow: hidden; /* Hide any overflow */
+    position: relative;
+    border-radius: 20px;
+    flex: 1;
+    margin-top: 5%;
   }
+
   .project-title {
     font-family: "Fraunces", serif;
     font-size: 50px;
     font-weight: 300;
     line-height: 50px;
   }
-
+  .no-box-shadow {
+    box-shadow: none; /* Remove box shadow */
+  }
   .project-caption {
     font-size: 18px;
     font-weight: 500;
     color: gray;
   }
-
+  .detail {
+    display: grid;
+    grid-template-rows: auto auto; /* Two rows for label and text */
+  }
   .details-card {
     background: linear-gradient(
       90deg,
       rgba(255, 233, 244, 0.4) 0%,
       rgba(234, 243, 255, 0.7) 100%
     );
-    padding: 20px;
     border-radius: 10px;
   }
 
@@ -477,5 +672,17 @@
   .label {
     font-weight: bold;
     margin-right: 8px;
+  }
+  .styled-image {
+    width: 1100px;
+    height: 285px;
+    filter: drop-shadow(
+      0px -10px 15px rgba(9, 255, 9, 0.7)
+    ); /* Green shadow on upper part */
+  }
+  .styled-image2 {
+    width: 1100px;
+    height: 585px;
+    filter: drop-shadow(0px -10px 15px rgba(165, 9, 255, 0.13));
   }
 </style>

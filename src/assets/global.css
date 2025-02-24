@@ -100,7 +100,15 @@ body {
   justify-content: center;
   margin-top: 20px;
 }
-
+@media (max-width: 600px) {
+  .projects-grid {
+    grid-template-columns: repeat(2, 1fr); /* 2 projects per row */
+  }
+}
+.custom-font {
+  font-family: "Fraunces", serif;
+  font-size: 56px;
+}
 /* Project Card */
 .project-card {
   position: relative;
@@ -110,7 +118,13 @@ body {
   overflow: hidden;
   transition: all 0.3s ease-in-out;
 }
-
+.loader-gif {
+  display: block; /* Make it a block element */
+  margin: 0 auto; /* Center it horizontally */
+  width: 100px;
+  margin-top: 20%;
+  height: 110px; /* Maintain aspect ratio */
+}
 /* Project Logo */
 .project-logo {
   display: flex;
@@ -126,6 +140,7 @@ body {
 .logo-img-f4s {
   background: #fff5ff !important; /* Ensure it's applied */
 }
+
 .logo-img-fade {
   background: #000000 !important; /* Ensure it's applied */
 }
