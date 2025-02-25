@@ -1,26 +1,21 @@
 <template>
-  <Suspense>
-    <router-view />
-  </Suspense>
+  <router-view>
+    <template v-slot:default="{ Component }">
+      <keep-alive>
+        <component :is="Component" v-if="$route.name !== 'work-specific'" />
+      </keep-alive>
+      <component :is="Component" v-if="$route.name === 'work-specific'" />
+    </template>
+  </router-view>
 </template>
 
 <script setup>
-  import { onMounted } from "vue";
-  import { useWorkStore } from "@/stores/useWorkStore";
+import { onMounted } from "vue";
+import { useWorkStore } from "@/stores/useWorkStore";
 
-  const workStore = useWorkStore();
+const workStore = useWorkStore();
 
-  // Fetch data before rendering
-  onMounted(async () => {
-    await workStore.fetchAllData();
-  });
+onMounted(async () => {
+  await workStore.fetchAllData();
+});
 </script>
-
-<style scoped>
-  .loading-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-  }
-</style>

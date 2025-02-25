@@ -83,12 +83,15 @@
                 class="mt-2"
               />
 
-              <a :href="project.link" target="_blank" class="go-button">
+              <div class="go-button"
+              :class="{ 'go-button-black': isDarkMode }"
+
+              @click="navigateToProject(project.id)">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 20 20"
-                  fill="black"
                   width="20"
+                  :fill="isDarkMode ? 'white' : 'black'"          
                 >
                   <path
                     fill-rule="evenodd"
@@ -96,7 +99,7 @@
                     clip-rule="evenodd"
                   />
                 </svg>
-              </a>
+              </div>
             </div>
           </div>
         </div>
@@ -119,6 +122,8 @@
   const goToWork = () => {
     router.push("/work");
   };
-
+  const navigateToProject = (projectId) => {
+    router.push(`/work/${projectId}`);
+  };
   const isDarkMode = computed(() => homeStore.isDarkMode);
 </script>

@@ -107,12 +107,14 @@
             class="mt-2"
           />
 
-          <div class="go-button" @click="navigateToProject(project.id)">
+          <div class="go-button"
+          :class="{ 'go-button-black': isDarkMode }"
+           
+ @click="navigateToProject(project.id)">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 20 20"
-              fill="black"
-              width="20"
+              :fill="isDarkMode ? 'white' : 'black'"               width="20"
             >
               <path
                 fill-rule="evenodd"
@@ -236,21 +238,4 @@
     color: black;
   }
 
-  .decor-left,
-  .decor-right {
-    width: 50px;
-    height: 1px;
-    background-color: black;
-    margin: 0 10px;
-  }
-  .dot-small {
-    font-size: 1rem;
-    margin: 0 5px;
-    color: black;
-  }
-  .dot {
-    font-size: 1.5rem;
-    margin: 0 5px;
-    color: black;
-  }
 </style>

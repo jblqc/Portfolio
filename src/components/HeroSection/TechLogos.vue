@@ -1,7 +1,7 @@
 <template>
   <div class="marquee-container">
     <!-- "Featured by" Title (Only appears on hover) -->
-    <div class="marquee-title">Featured by</div>
+    <div class="marquee-title">Technologies</div>
 
     <!-- Logos Section (Blurs on Hover) -->
     <div

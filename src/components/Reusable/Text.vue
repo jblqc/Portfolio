@@ -70,7 +70,7 @@
           "navy-blue",
           "navy-blue-light",
           "yellow-gold",
-          "gray",
+          "gray","dark-gray",
           "white",
           "black",
         ].includes(value),
@@ -110,6 +110,8 @@
         ? "#FFD700"
         : props.color === "gray"
         ? "#b0b3b8"
+        : props.color === "dark-gray"
+        ? "#b0b3b8"
         : props.color === "white"
         ? "#ffffff"
         : "#ffffff"; // Default fallback for dark mode
@@ -124,6 +126,8 @@
         ? "#FFD700"
         : props.color === "gray"
         ? "#4a576f99"
+        : props.color === "dark-gray"
+        ? "#444e5c"
         : props.color === "white"
         ? "#ffffff"
         : "#000000"; // Default fallback for light mode
@@ -194,7 +198,7 @@
     color: rgb(34, 36, 44);
   }
   .dark-gray {
-    color: #3b4350 !important;
+    color: #444e5c !important;
   }
   .gray {
     color: #4a576f99 !important;

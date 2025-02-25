@@ -83,5 +83,3 @@ export const useWorkStore = defineStore("work", {
 });
 
 // ✅ Fetch data in advance before app loads
-const workStore = useWorkStore();
-workStore.fetchAllData();

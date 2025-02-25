@@ -41,7 +41,7 @@
 
       <v-col cols="auto" class="d-flex align-center">
         <a
-          href="https://github.com/yourgithub"
+          href="https://github.com/jblqc"
           target="_blank"
           class="d-flex align-center gap-2 text-decoration-none link-style"
         >
@@ -58,7 +58,7 @@
 
       <v-col cols="auto" class="d-flex align-center">
         <a
-          href="https://www.instagram.com/yourinstagram"
+          href="https://www.instagram.com/jennyylee?igsh=Y290MG94azlqZnhh"
           target="_blank"
           class="d-flex align-center gap-2 text-decoration-none link-style"
         >
@@ -75,7 +75,7 @@
 
       <v-col cols="auto" class="d-flex align-center">
         <a
-          href="https://www.linkedin.com/in/yourlinkedin"
+          href="https://www.linkedin.com/in/jennefer-lee-a31332286/"
           target="_blank"
           class="d-flex align-center gap-2 text-decoration-none link-style"
         >

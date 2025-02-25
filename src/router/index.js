@@ -11,7 +11,11 @@ const routes = [
     component: () => import("@/pages/WorkShowCase.vue"), // Parent Layout
     children: [
       {
-        path: "", // Default child when visiting /work
+        path: "", // Redirect /work to /work/all
+        redirect: "/work/all",
+      },
+      {
+        path: "all", // Default child for /work
         name: "work-all",
         component: () => import("@/components/WorkSection/WorkAll.vue"),
       },
@@ -19,14 +23,25 @@ const routes = [
         path: ":id", // Child route for WorkSpecific.vue
         name: "work-specific",
         component: () => import("@/components/WorkSection/WorkSpecific.vue"),
-        props: true, // Pass route params as props
+        props: true, // Ensure params are passed
+
       },
     ],
   },
+  
   {
     path: "/inquiry",
     name: "inquiry",
     component: () => import("@/pages/Inquiry.vue"),
+  },
+  {
+    path: "/about",
+    name: "about",
+    component: () => import("@/pages/About.vue"),
+  }, {
+    path: "/journey",
+    name: "journey",
+    component: () => import("@/pages/Journey.vue"),
   },
 ];
 const router = createRouter({

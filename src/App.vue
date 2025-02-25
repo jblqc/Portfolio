@@ -14,7 +14,7 @@
     <div class="content-container">
       <NavBar />
 
-      <v-app> <router-view /> </v-app>
+      <v-app :class="{ 'dark-mode': isDarkMode }"> <router-view /> </v-app>
       <Footer />
     </div>
 
@@ -43,12 +43,15 @@
   </div>
 </template>
 <script setup>
+import { computed} from "vue";
   import { useHomeStore } from "@/stores/useHomeStore";
 
   import NavBar from "@/components/NavBar.vue";
   import Footer from "./components/Footer.vue";
-
   const homeStore = useHomeStore();
+
+  const isDarkMode = computed(() => homeStore.isDarkMode);
+
 </script>
 <style>
   /* Light Mode */
@@ -64,6 +67,13 @@
       rgba(255, 255, 255, 0.956)
     );
   }
+
+  .v-timeline-divider__after {
+  background-color: rgba(var(--v-border-color), var(--v-border-opacity));
+}
+.dark-mode .v-timeline-divider__after  {
+  background-color: white !important;
+}
   /* Dark Mode */
   .noise-bg-dark {
     position: relative;

@@ -208,11 +208,18 @@ body {
   transition: all 0.3s ease-in-out;
   margin-top: 10px;
 }
+.go-button.go-button-black {
+  background: black !important;
+}
+
 .dark-mode-card {
   background: rgba(25, 25, 32, 0.9) !important; /* Change to red in dark mode */
 }
 .go-button:hover {
   background: #f3f3f3;
+}
+.go-button-black:hover {
+  background: #878484 !important;
 }
 /* footer */
 .footer-quote {
@@ -228,4 +235,52 @@ body {
 .decor {
   font-size: 18px;
   color: rgba(90, 90, 90, 0.5);
+}
+
+
+.decor-left,
+.decor-right {
+  width: 50px;
+  height: 1px;
+  background-color: black;
+  margin: 0 10px;
+}
+.dot-small {
+  font-size: 1rem;
+  margin: 0 5px;
+  color: black;
+}
+.dot {
+  font-size: 1.5rem;
+  margin: 0 5px;
+  color: black;
+}
+/* WORK SECTION */
+
+
+.design1 img,
+.design2 img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+.design1 {
+  box-shadow: 6px 6px 12px -6px rgb(0, 0, 0, 0.1),
+    24px 24px 30px -6px rgb(0, 0, 0, 0.2);
+
+  overflow: hidden; /* Hide any overflow */
+
+  border-radius: 20px;
+}
+
+.design2 {
+  box-shadow: 6px 6px 12px -6px rgb(0, 0, 0, 0.1),
+    24px 24px 30px -6px rgb(0, 0, 0, 0.2);
+  height: auto;
+  overflow: hidden; /* Hide any overflow */
+  position: relative;
+  border-radius: 20px;
+  flex: 1;
+  margin-top: 5%;
 }

@@ -1,6 +1,15 @@
 <template>
-  <button class="glassmorphic-button">Back</button>
+  <button class="glassmorphic-button"
+  :class="{ 'glassmorphic-button-black': isDarkMode }"
+>Back</button>
 </template>
+
+<script setup>
+import { computed} from "vue";
+import { useHomeStore } from "@/stores/useHomeStore";
+const homeStore = useHomeStore();
+const isDarkMode = computed(() => homeStore.isDarkMode);
+</script>
 
 <style scoped>
   .glassmorphic-button {
@@ -17,6 +26,16 @@
     );
     backdrop-filter: blur(10px); /* Glass effect */
     box-shadow: 0px 4px 10px rgba(255, 100, 100, 0.3),
+      0px -4px 10px rgba(255, 255, 255, 0.2);
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease-in-out;
+  }
+  .glassmorphic-button-black {
+   
+    background:linear-gradient(122deg,rgba(234, 228, 232, 0.975) 0%, rgba(238, 174, 202, 0.975) 33%, rgb(60, 151, 254) 100%);
+    backdrop-filter: blur(10px); /* Glass effect */
+    box-shadow: 0px 4px 10px rgba(255, 100, 216, 0.427),
       0px -4px 10px rgba(255, 255, 255, 0.2);
     position: relative;
     overflow: hidden;

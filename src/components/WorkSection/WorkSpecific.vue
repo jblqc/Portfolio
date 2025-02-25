@@ -68,7 +68,8 @@
                 :color="'black'"
                 class="description"
               />
-              <v-container class="details-card mt-3 mb-3">
+              <v-container class="details-card mt-3 mb-3"
+              :class="{ 'details-card-black': isDarkMode }">
                 <v-row no-gutters>
                   <v-col
                     v-for="(detail, index) in projectDetailsArray"
@@ -116,14 +117,14 @@
                       :color="'black'"
                     />
                     <div
-                      class="mt-1"
-                      @click="openLink(linkObj.url)"
+                    class="go-button mt-1 ml-2"
+              :class="{ 'go-button-black': isDarkMode }"                      @click="openLink(linkObj.url)"
                       style="display: flex; align-items: center"
                     >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 20 20"
-                        fill="black"
+                        :fill="isDarkMode ? 'white' : 'black'"
                         width="20"
                       >
                         <path
@@ -236,15 +237,13 @@
 </template>
 
 <script setup>
-  import { computed, ref, onMounted, watch } from "vue";
+  import { computed, ref, onMounted, watch ,onUnmounted, nextTick} from "vue";
   import { useRoute } from "vue-router";
   import { useWorkStore } from "@/stores/useWorkStore";
   import { useHomeStore } from "@/stores/useHomeStore";
   import { useRouter } from "vue-router";
-
   import BackButton from "../Reusable/BackButton.vue";
-
-  import sizeOf from "image-size"; // Import the image-size library
+  import sizeOf from "image-size"; 
 
   import Text from "../Reusable/Text.vue";
   import ColorThief from "colorthief";
@@ -255,7 +254,6 @@
   const projectImage = ref(null);
   const homeStore = useHomeStore();
   const router = useRouter(); // Initialize router
-
   const imageShadowColor = ref("rgba(0, 0, 0, 0.15)"); // Default shadow
   const currentProjectID = computed(() => parseInt(route.params.id));
   const images = ref([]);
@@ -564,6 +562,14 @@
     }
     isDataLoaded.value = true; // Set the loading state to true after data is fetched
   });
+  watch(() => route.params.id, (newId) => {
+  console.log("Project changed:", newId);
+});
+  onUnmounted(() => {
+  nextTick(() => {
+    console.log("WorkSpecific.vue unmounted safely");
+  });
+});
 </script>
 
 <style scoped>
@@ -600,32 +606,6 @@
     gap: 60px; /* Adjust spacing as needed */
   }
 
-  .design1 img,
-  .design2 img {
-    width: 100%;
-    height: auto;
-    object-fit: cover;
-  }
-
-  .design1 {
-    box-shadow: 6px 6px 12px -6px rgb(0, 0, 0, 0.1),
-      24px 24px 30px -6px rgb(0, 0, 0, 0.2);
-
-    overflow: hidden; /* Hide any overflow */
-
-    border-radius: 20px;
-  }
-
-  .design2 {
-    box-shadow: 6px 6px 12px -6px rgb(0, 0, 0, 0.1),
-      24px 24px 30px -6px rgb(0, 0, 0, 0.2);
-    height: auto;
-    overflow: hidden; /* Hide any overflow */
-    position: relative;
-    border-radius: 20px;
-    flex: 1;
-    margin-top: 5%;
-  }
   .design3 {
     overflow: hidden; /* Hide any overflow */
     position: relative;
@@ -660,7 +640,10 @@
     );
     border-radius: 10px;
   }
-
+  .details-card-black {
+    background: linear-gradient(122deg,rgba(49, 46, 48, 0.975) 0%, rgba(238, 174, 202, 0.975) 33%, rgb(60, 151, 254) 100%);
+    border-radius: 10px;
+  }
   .detail {
     font-size: 16px;
     margin-bottom: 8px;

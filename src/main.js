@@ -13,6 +13,9 @@ import "@mdi/font/css/materialdesignicons.css";
 import Flicking from "@egjs/vue3-flicking";
 import "@egjs/vue3-flicking/dist/flicking.css";
 
+// Create Vue app instance
+const app = createApp(App);
+
 // Create Pinia instance
 const pinia = createPinia();
 
@@ -20,9 +23,6 @@ const pinia = createPinia();
 const vuetify = createVuetify({
   // Add your custom configurations here if needed
 });
-
-// Create Vue app instance
-const app = createApp(App);
 
 app.use(pinia);
 app.use(router);
