@@ -7,9 +7,7 @@
             <v-col cols="12" class="text-center">
               <div
                 class="project-logo-container"
-                :class="{
-                  'dark-mode-card': isDarkMode,
-                }"
+                
               >
                 <img
                   crossOrigin="anonymous"
@@ -640,10 +638,7 @@
     );
     border-radius: 10px;
   }
-  .details-card-black {
-    background: linear-gradient(122deg,rgba(49, 46, 48, 0.975) 0%, rgba(238, 174, 202, 0.975) 33%, rgb(60, 151, 254) 100%);
-    border-radius: 10px;
-  }
+
   .detail {
     font-size: 16px;
     margin-bottom: 8px;

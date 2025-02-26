@@ -3,7 +3,8 @@
     <v-container class="custom-navbar">
       <v-toolbar-items class="d-flex">
         <router-link to="/">
-          <img src="@/assets/images/jenny.svg" alt="Logo" class="w-28" />
+          <img src="@/assets/images/Jenny2.svg" alt="Logo" class="w-28" />
+
         </router-link>
       
         <v-row class="mt-3">
@@ -25,8 +26,8 @@
               />
             </v-btn>
 
-            <v-btn to="/contact" class="nav-link" text> <Text
-                text="contact"
+            <v-btn to="/story" class="nav-link" text> <Text
+                text="story"
                 variant="subtitle-1"
               /></v-btn>
             <v-btn to="/journey" class="nav-link" text>
@@ -38,7 +39,7 @@
               />
             </v-btn>
           </div>
-          <v-spacer></v-spacer>
+          <!-- <v-spacer></v-spacer> -->
           <div class="svg-container">
             <a
           href="https://www.instagram.com/jennyylee?igsh=Y290MG94azlqZnhh"
@@ -98,34 +99,29 @@
               />
             </svg>
             <span class="decor">|</span>
-            <!-- <div class="container">
-  <div class="daynight">
-
-    <label for="checkbox">
-      <input type="checkbox" name="" id="checkbox">
-      <div class="toggle">
-        <div class="cloud"></div>
-        <div class="star"></div>
-        <div class="sea"></div>
-        <div class="mountains"></div>
-      </div>
-    </label>
-  </div>
-</div> -->
-            <v-btn
-              icon
-              @click="themeStore.toggleTheme()"
-              class="mt-n15 ml-n3 mr-8"
-            >
-            
-              <img
-                :src="themeStore.isDarkMode ? moonIcon : sunIcon"
-                alt="Theme Toggle"
-                width="28"
-                height="28"
-              />
-            </v-btn>
+           
+         
           </div>
+
+          <div class="container">
+              <div class="daynight">
+                <label for="checkbox">
+                  <input
+                    type="checkbox"
+                    id="checkbox"
+                    :checked="homeStore.isDarkMode"
+                    @change="homeStore.toggleTheme"
+                  />
+                  <div class="toggle">
+                    <div class="cloud"></div>
+                    <div class="star"></div>
+                    <div class="sea"></div>
+                    <div class="mountains"></div>
+                  </div>
+                </label>
+              </div>
+            </div>
+
           <div
             v-show="isMobile"
             class="menu-wrapper"
@@ -133,8 +129,10 @@
             :class="{ active: isMenuOpen }"
             role="button"
           >
-            <div class="menu-bar one"></div>
-            <div class="menu-bar two"></div>
+            <div class="menu-bar one"        :class="{ 'menu-bar-dark': isDarkMode }"
+></div>
+            <div class="menu-bar two"        :class="{ 'menu-bar-dark ': isDarkMode }"
+></div>
           </div>
         </v-row>
       </v-toolbar-items>
@@ -143,21 +141,31 @@
     <!-- Sidebar Navigation -->
     <div class="sidebar" :class="{ active: isMenuOpen }">
       <div @click="toggleMenu" class="menu-wrapper2" role="button">
-        <div class="menu-bar2 one"></div>
-        <div class="menu-bar2 two"></div>
+        <div class="menu-bar2 one"  
+        :class="{ 'menu-bar-dark': isDarkMode }"
+        ></div>
+        <div class="menu-bar2 two"
+        :class="{ 'menu-bar-dark ': isDarkMode }"
+        ></div>
       </div>
       <div class="sidebar-content">
         <ul class="nav-links">
           <li>
             <router-link to="/work" class="nav-link"
-              >work
+              >   <Text
+                text="work"
+                variant="subtitle-1"
+              />
               <div class="badge-container">
                 <span class="custom-badge">14</span>
               </div></router-link
             >
           </li>
           <li>
-            <router-link to="/about" class="nav-link">about</router-link>
+            <router-link to="/about" class="nav-link">   <Text
+                text="about"
+                variant="subtitle-1"
+              /></router-link>
           </li>
           <li>
             <router-link to="/journey" class="nav-link"
@@ -170,7 +178,10 @@
             /></router-link>
           </li>
           <li>
-            <router-link to="/contact" class="nav-link">contact</router-link>
+            <router-link to="/story" class="nav-link">   <Text
+                text="story"
+                variant="subtitle-1"
+              /></router-link>
           </li>
         </ul>
       </div>
@@ -181,14 +192,17 @@
 import { ref, onMounted, onUnmounted, computed } from "vue";
 import { useHomeStore } from "@/stores/useHomeStore";
 import { useWorkStore } from "@/stores/useWorkStore"; // Import Work Store
-import sunIcon from "@/assets/sun.svg";
-import moonIcon from "@/assets/moon.svg";
+import { useRouter } from "vue-router";
+
 import Text from "@/components/Reusable/Text.vue";
 
-const themeStore = useHomeStore();
-const workStore = useWorkStore(); // Initialize work store
+const homeStore = useHomeStore();
+const workStore = useWorkStore();
+const router = useRouter(); // Initialize router
+
 const isMenuOpen = ref(false);
 const isMobile = ref(window.innerWidth <= 768);
+const isDarkMode = computed(() => homeStore.isDarkMode);
 
 const toggleMenu = () => {
   isMenuOpen.value = !isMenuOpen.value;
@@ -229,7 +243,8 @@ onUnmounted(() => {
   width: 710px;
   z-index: 50;
   box-shadow: inset 0 2px 6px rgba(255, 255, 255, 0.455),
-    inset 0 -2px 6px rgba(255, 255, 255, 0.3);
+    inset 0 -2px 6px rgba(255, 255, 255, 0.3);  padding: 16px !important;
+
 }
 
 .nav-link {
@@ -249,9 +264,9 @@ onUnmounted(() => {
 
 .custom-badge {
   position: absolute;
-  top: -18px;
+  top: -21px;
   right: -16px;
-  background-color: #ff3b30;
+  background-color: #ff3b30 !important;
   color: white;
   font-size: 8.5px;
   font-weight: bold;
@@ -263,6 +278,7 @@ onUnmounted(() => {
   align-items: center;
   justify-content: center;
 }
+
 .menu-wrapper {
   width: 30px;
   height: 30px;
@@ -285,7 +301,7 @@ onUnmounted(() => {
   position: absolute;
   width: 60%;
   height: 1px;
-  background: #000000;
+  background: #000000 !important;
   left: 0;
   transition: all 0.3s;
 }
@@ -294,7 +310,25 @@ onUnmounted(() => {
   position: absolute;
   width: 3%;
   height: 21px;
-  background: #000000;
+  background: #000000 !important;
+  right: 0;
+  transition: all 0.3s;
+}
+.menu-bar-dark {
+
+  position: absolute;
+  width: 60%;
+  height: 1px;
+  background: #ffffff !important;
+  left: 0;
+  transition: all 0.3s; 
+}
+.menu-bar-dark2 {
+
+  position: absolute;
+  width: 3%;
+  height: 21px;
+  background: #ffffff !important;
   right: 0;
   transition: all 0.3s;
 }
@@ -402,8 +436,14 @@ onUnmounted(() => {
   .mobile-menu {
     display: flex; /* Show mobile menu when open */
   }
+  .svg-container {
+  margin-right: 5px;margin-left: 20px;
+  display: flex;
+  gap: 20px; /* Adjust the gap size as needed */
+}
 }
 
+/* TOGGLE */
 /* TOGGLE */
 *,
 *::before,
@@ -413,28 +453,22 @@ onUnmounted(() => {
   box-sizing: border-box;
 }
 
-body {
-  height: 100vh;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-family: Arial, Helvetica, sans-serif;
-}
 
 .container {
-  height: 100%;
-  width: 100%;
+  height: 50%;
+  width: 17%;
   display: grid;
   place-items: center;
+  margin-top: -8px;
 }
+
 #checkbox {
   display: none;
 }
+
 .toggle {
-  height: 80px;
-  width: 200px;
+  height: 40px; /* Adjusted height */
+  width: 80px; /* Adjusted width */
   border-radius: 9999px;
   background: linear-gradient(to bottom, #6ec8ff, #1f73a7);
   position: relative;
@@ -442,6 +476,7 @@ body {
   cursor: pointer;
   box-shadow: 6px 6px 10px #0000003d;
 }
+
 .mountains {
   height: 100%;
   width: 100%;
@@ -449,30 +484,23 @@ body {
   z-index: 3;
   background-color: #1d7371;
   transition: all 0.5s ease-in-out;
-  clip-path: polygon(
-    0% 80%,
-    25% 50%,
-    40% 70%,
-    60% 35%,
-    65% 45%,
-    80% 20%,
-    100% 80%,
-    100% 100%,
-    0% 100%
-  );
+  clip-path: polygon(-3% 92%, 25% 25%, 41% 60%, 56% 35%, 66% 56%, 77% 78%, 88% 58%, 109% 100%, 0% 100%);
+
 }
+
 .cloud {
-  height: 8px;
-  width: 18px;
-  border-radius: 9999px;
-  background-color: rgb(255, 255, 255);
-  position: absolute;
-  top: 20%;
-  left: 10%;
-  filter: opacity(0.5);
+  height: 16%;
+    width: 19.5%;
+    border-radius: 9999px;
+    background-color: rgb(255, 255, 255) !important;
+    position: absolute;
+    top: 19%;
+    left: 33%;
+    filter: opacity(0.5);
 }
+
 .sea {
-  height: 200px;
+  height: 237%; /* Adjusted to relative size */
   width: 300%;
   border-radius: 50%;
   position: absolute;
@@ -489,34 +517,37 @@ body {
     #06063b
   );
 }
+
 .sea::before {
   content: "";
-  height: 25px;
-  width: 15px;
+  height: 10%; /* Adjusted to relative size */
+  width: 7.5%; /* Adjusted to relative size */
   background-color: rgba(254, 254, 254, 0.34);
-  filter: blur(5px);
+  filter: blur(3px);
   position: absolute;
   top: 2%;
   left: 43%;
 }
+
 .star {
-  height: 2px;
+  height: 2.5px;
   width: 2px;
   position: absolute;
   top: -50%;
-  right: 15%;
+  right: 45%;
   background-color: #fff;
   transition: all 0.5s ease-in-out;
-  filter: blur(0.8px);
+  filter: blur(0.9px);
   border-radius: 50%;
 }
+
 .star::before {
   content: "";
   height: 100%;
   width: 100%;
   position: absolute;
   top: -50%;
-  right: 20px;
+  right: -12px;
   background-color: #fff;
   transition: all 0.5s ease-in-out;
   border-radius: 50%;
@@ -536,8 +567,8 @@ body {
 
 .cloud::before {
   content: "";
-  height: 10px;
-  width: 10px;
+  height: 78%; /* Adjusted to relative size */
+  width: 50%; /* Adjusted to relative size */
   border-radius: 50%;
   background-color: rgb(255, 255, 255);
   position: absolute;
@@ -552,11 +583,11 @@ body {
 
 .toggle::before {
   content: "";
-  height: 40px;
-  width: 40px;
+  height: 30px; /* Adjusted to fit new size */
+  width: 30px; /* Adjusted to fit new size */
   position: absolute;
-  top: 10%;
-  right: 30%;
+  top: 3%;
+  right: -8%;
   border-radius: 50%;
   background-color: #ffd34d;
   transition: all 0.5s ease-in-out;
@@ -565,8 +596,8 @@ body {
 
 .toggle::after {
   content: "";
-  height: 35px;
-  width: 35px;
+  height: 25px; /* Adjusted to fit new size */
+  width: 25px; /* Adjusted to fit new size */
   position: absolute;
   top: 10%;
   left: -60%;
@@ -577,21 +608,23 @@ body {
 }
 
 #checkbox:checked + .toggle::before {
-  transform: translateX(280%);
+  transform: translateX(100%); /* Adjusted for new size */
 }
 
 #checkbox:checked + .toggle::after {
-  transform: translateX(480%);
+  transform: translateX(200%); /* Adjusted for new size */
 }
 
 #checkbox:checked + .toggle .mountains {
   background-color: #05021a;
   transform: translateY(100%);
 }
+
 #checkbox:checked + .toggle .sea {
   background-color: #05021a;
   bottom: -210%;
 }
+
 #checkbox:checked + .toggle .star {
   transform: rotate(10deg);
   top: 20%;

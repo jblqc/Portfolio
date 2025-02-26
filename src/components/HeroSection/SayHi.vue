@@ -1,9 +1,10 @@
 <template>
-  <section class="contact-card">
+  <section class="contact-card"  :class="{ 'contact-card-dark': isDarkMode }"
+>
     <v-container>
       <v-row align="center" class="d-flex flex-column-reverse flex-md-row">
         <!-- Left Section -->
-        <v-col cols="12" md="5" class="text-left">
+        <v-col   class="text-left">
           <Text
             :text="'Say hi!'"
             variant="display-4"
@@ -69,10 +70,12 @@
 </template>
 
 <script setup>
-  import { ref } from "vue";
+  import { computed } from "vue";
   import Text from "../Reusable/Text.vue";
+  import { useHomeStore } from "@/stores/useHomeStore";
+  const homeStore = useHomeStore();
 
-  // Image path
+  const isDarkMode = computed(() => homeStore.isDarkMode);
   const chatImage = new URL("@/assets/images/chat.png", import.meta.url).href;
 </script>
 
@@ -87,7 +90,16 @@
     padding: 2rem;
     border-radius: 15px;
   }
-
+  .contact-card-dark {
+    background: linear-gradient(122deg,rgb(94, 21, 67) 10%, rgba(164, 76, 184, 0.975) 45%, rgba(60, 150, 254, 0.459) 100%);
+    backdrop-filter: blur(20px) brightness(1.2); /* Stronger blur & brightness */
+  
+  box-shadow: inset 0 0 10px rgba(255, 255, 255, 0.109),
+    0 4px 10px rgba(0, 0, 0, 0.2); /* Inner & outer shadow for depth */
+    border: 1px solid rgba(255, 255, 255, 0.2); /* Adds glassy border */
+    padding: 2rem;
+    border-radius: 15px;
+  }
   /* Contact Links */
   .contact-links {
     display: flex;
@@ -119,6 +131,7 @@
     height: auto;
     object-fit: contain;
   } /* Medium Screens (Tablets) */
+
   @media (max-width: 960px) {
     .chat-image img {
       width: 300px;

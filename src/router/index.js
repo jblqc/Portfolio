@@ -43,6 +43,11 @@ const routes = [
     name: "journey",
     component: () => import("@/pages/Journey.vue"),
   },
+  {
+    path: "/story",
+    name: "story",
+    component: () => import("@/pages/Story.vue"),
+  },
 ];
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),

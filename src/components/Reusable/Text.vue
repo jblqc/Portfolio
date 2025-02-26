@@ -20,7 +20,8 @@
       type: String,
       default: "body-1",
       validator: (value) =>
-        [
+        [          "display-5",
+
           "display-4",
           "display-3",
           "display-2",
@@ -109,7 +110,7 @@
         : props.color === "yellow-gold"
         ? "#FFD700"
         : props.color === "gray"
-        ? "#b0b3b8"
+        ? "#4f5d76a8"
         : props.color === "dark-gray"
         ? "#b0b3b8"
         : props.color === "white"
@@ -125,7 +126,7 @@
         : props.color === "yellow-gold"
         ? "#FFD700"
         : props.color === "gray"
-        ? "#4a576f99"
+        ? "#4a576fa8"
         : props.color === "dark-gray"
         ? "#444e5c"
         : props.color === "white"
@@ -137,6 +138,10 @@
 
 <style scoped>
   /* Define text sizes for each variant */
+  .display-5 {
+    font-size: 5rem;
+    line-height: 1.2;
+  }
   .display-4 {
     font-size: 3.5rem;
     line-height: 1.2;
@@ -170,7 +175,7 @@
     line-height: 1.5;
   }
   .body-1 {
-    font-size: 1rem;
+    font-size: 1.1rem;
     line-height: 1.5;
   }
   .body-2 {
@@ -201,7 +206,7 @@
     color: #444e5c !important;
   }
   .gray {
-    color: #4a576f99 !important;
+    color: #4f5d76a8 !important;
   }
   .light-gray {
     color: #ccd1db !important;

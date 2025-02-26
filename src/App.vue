@@ -56,7 +56,6 @@ import { computed} from "vue";
 <style>
   /* Light Mode */
   .noise-bg-light {
-    position: relative;
     width: 100%;
     min-height: 100vh; /* ✅ Allow content to extend */
     overflow-y: auto; /* ✅ Enable scrolling */
@@ -76,7 +75,6 @@ import { computed} from "vue";
 }
   /* Dark Mode */
   .noise-bg-dark {
-    position: relative;
     width: 100%;
     min-height: 100vh; /* ✅ Allow content to extend */
     overflow-y: auto; /* ✅ Enable scrolling */
@@ -156,4 +154,9 @@ import { computed} from "vue";
     margin-top: 160px;
     padding: 20px; /* Optional padding */
   }
+  /* OVERRIDE */
+  /* Remove all: unset and replace with specific overrides */
+  .v-container{
+  padding: 0px !important;
+}
 </style>

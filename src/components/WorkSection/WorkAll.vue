@@ -68,7 +68,7 @@
             }"
           />
         </div>
-        <div class="mt-9 d-flex flex-column align-center">
+        <div class="mt-9 d-flex flex-column align-center text-center">
           <Text
             :text="project.title"
             variant="subtitle-1"

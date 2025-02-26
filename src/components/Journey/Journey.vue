@@ -33,18 +33,27 @@
           size="x-small"
           class="timeline-item"
         >
-          <template v-slot:opposite>
+          <template v-slot:opposite >
             <!-- Left Side: Date -->
-            <Text
-              :text="event.date"
-              variant="subtitle-1"
-              fontWeight="600"
-              class="tracking-wider"
-            />
-            <p class="text-grey text-caption font-weight-bold"></p>
+            <div v-if="!isMobile">
+      <Text
+        :text="event.date"
+        variant="subtitle-1"
+        fontWeight="600"
+        class="tracking-wider"
+      />
+    </div>
           </template>
+          <Text
+            v-if="isMobile"
+              :text="event.date"
+              variant="subtitle-2"
+              fontWeight="500"
+              class="ml-4"
+            />
           <div class="timeline-content"     :class="{ 'timeline-content-black': isDarkMode }"     
 >
+
 <v-chip
   v-for="(badge, i) in event.labels"
   :key="i"
@@ -102,7 +111,7 @@
 </template>
 
 <script setup>
-import { ref, computed } from "vue";
+import { ref, computed,onMounted,onUnmounted } from "vue";
 import Text from "../Reusable/Text.vue";
 import TechLogos from "../HeroSection/TechLogos.vue";
 import { useHomeStore } from "@/stores/useHomeStore";
@@ -110,6 +119,10 @@ import { useRouter } from "vue-router";
 
 const homeStore = useHomeStore();
 const isDarkMode = computed(() => homeStore.isDarkMode);
+const isMobile = ref(window.innerWidth <= 768);
+const updateIsMobile = () => {
+  isMobile.value = window.innerWidth <= 768;
+};
 
 const timelineItems = ref([
   {
@@ -228,6 +241,16 @@ const getDotColor = (labels) => {
     ? colors[labels.find((label) => colors[label])]
     : "#D0D1FF";
 };
+// Add event listeners when the component is mounted
+onMounted(() => {
+  window.addEventListener("resize", updateIsMobile);
+});
+
+// Remove event listeners when the component is unmounted
+onUnmounted(() => {
+  window.removeEventListener("resize", updateIsMobile);
+});
+
 </script>
 
 <style scoped>

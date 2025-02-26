@@ -1,4 +1,5 @@
 <template>
+  
   <div class="inquiry-container">
     <Text
       :text="'Inquiry Form'"
@@ -139,11 +140,15 @@
           variant="outlined"
           group
           class="mb-10 mt-5"
+          :style="isDarkMode ? 'border: 1px solid #808080; color: rgba(129, 114, 131, 0.993);' : ''"
+
         >
           <v-btn
             v-for="option in timelineOptions"
             :key="option.value"
             :value="option.value"
+            :style="isDarkMode ? 'border: 1px solid #808080;' : ''"
+
           >
             {{ option.label }}
           </v-btn>
@@ -190,9 +195,10 @@
 
 <script setup>
 // Import necessary modules
-import { ref } from "vue";
+import { ref,computed } from "vue";
 import { useInquiryStore } from "@/stores/useInquiryStore";
-import { VRadioGroup, VRadio } from "vuetify/components";
+import { VRadioGroup, VRadio } from "vuetify/components";  import { useHomeStore } from "@/stores/useHomeStore";
+
 import TextField from "@/components/Reusable/TextField.vue";
 import TextFieldNumber from "@/components/Reusable/TextFieldNumber.vue";
 import Text from "../components/Reusable/Text.vue";
@@ -206,6 +212,8 @@ const EMAILJS_PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
 const REPLY_TO_EMAIL = import.meta.env.VITE_REPLY_TO_EMAIL;
 
 const inquiryStore = useInquiryStore();
+const homeStore = useHomeStore();
+const isDarkMode = computed(() => homeStore.isDarkMode);
 
 // Options
 const lookingForOptions = [
@@ -322,6 +330,7 @@ const submitForm = () => {
     }
   }
 });
+inquiryStore.resetForm();
 
     })
     .catch((error) => {
