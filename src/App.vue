@@ -52,11 +52,24 @@
   const isDarkMode = computed(() => homeStore.isDarkMode);
 
   onMounted(() => {
-    const script = document.createElement("script");
-    script.src = "/analytics.js"; // Change from "/_vercel/insights/script.js" to a custom path
-    script.defer = true;
-    script.onload = () => console.log("Analytics script loaded.");
-    document.head.appendChild(script);
+    // Function to load an external script
+    const loadScript = (src, callback) => {
+      const script = document.createElement("script");
+      script.src = src;
+      script.defer = true;
+      script.onload = callback;
+      document.head.appendChild(script);
+    };
+
+    // Load Vercel Speed Insights
+    loadScript("https://vercel.com/speed-insights/script.js", () =>
+      console.log("Speed Insights script loaded.")
+    );
+
+    // Load Custom Analytics
+    loadScript("/analytics.js", () =>
+      console.log("Custom Analytics script loaded.")
+    );
   });
 </script>
 <style>
