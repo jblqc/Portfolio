@@ -57,18 +57,22 @@
       const script = document.createElement("script");
       script.src = src;
       script.defer = true;
-      script.onload = callback;
+      script.onload = () => {
+        console.log(`✅ Script loaded: ${src}`);
+        callback();
+      };
+      script.onerror = () => console.error(`❌ Failed to load: ${src}`);
       document.head.appendChild(script);
     };
 
-    // Load Vercel Speed Insights
-    loadScript("https://vercel.com/speed-insights/script.js", () =>
-      console.log("Speed Insights script loaded.")
+    // Load Speed Insights from the public folder
+    loadScript("/speed-insight.js", () =>
+      console.log("✅ Speed Insights script loaded.")
     );
 
     // Load Custom Analytics
     loadScript("/analytics.js", () =>
-      console.log("Custom Analytics script loaded.")
+      console.log("✅ Custom Analytics script loaded.")
     );
   });
 </script>
