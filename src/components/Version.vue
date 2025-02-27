@@ -4,7 +4,7 @@
         <v-col cols="12"  align="center">
           <div v-for="version in versions" :key="version.id" class="version-box">
             <!-- Active Version Pulse Indicator -->
-            <span v-if="version.status === 'live'" class="pulse"></span>
+            <span v-if="version.status === 'active'" class="pulse"></span>
   
             <!-- Version Number -->
             <Text
@@ -14,23 +14,21 @@
               class="version-number"
             />
   
-            <!-- Date -->
-            <Text
-              :text="version.date"
-              variant="body-2"
-              fontWeight="400"
-              class="version-date"
-            />
-  
-            <!-- Live Status -->
-          
-            <Text
-              v-if="version.status === 'live'"
-              text="live"
-              variant="body-2"
-              fontWeight="700"
-              :gradient="'linear-gradient(90deg,#1C45A6 0%,#44B5A2 50%,#a7c68f 100%)'"
-            />
+             <!-- Show Date if not Active, Otherwise Show "Live" -->
+          <Text
+            v-if="version.status !== 'active'"
+            :text="version.date"
+            variant="body-2"
+            fontWeight="400"
+            class="version-date"
+          />
+          <Text
+            v-else
+            text="live"
+            variant="body-2"
+            fontWeight="700"
+            :gradient="'linear-gradient(90deg,#1C45A6 0%,#44B5A2 50%,#a7c68f 100%)'"
+          />
           </div>
         </v-col>
       </v-row>
@@ -43,7 +41,9 @@
   
   // Version Data
   const versions = ref([
-    { id: 1, version: "v1.0", date: "2023-24", status: "live" },
+    { id: 1, version: "v1.1", date: "2023-24", status: "active" },
+    { id: 2, version: "v1.0", date: "2023-24", status: "inactive" },
+
 
   ]);
   </script>
@@ -62,9 +62,12 @@
     gap: 4px; /* Space between elements */
     margin-bottom: 12px; /* Space between version boxes */
     opacity: 0.7;
-    width: 130px;
+    width: 120px;
   }
-  
+  .version-box:hover {
+  background: #c38df014;  transition: 0.3s ease-in-out;
+
+}
   /* Pulse Indicator */
   .pulse {
     position: absolute;
