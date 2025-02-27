@@ -57,11 +57,12 @@
     />
 
     <!-- Bullet Points for Details -->
-    <ul class="modal-details">
-      <li v-for="(detail, index) in formattedDetails" :key="index">
-        <Text :text='"- "+ detail' variant="subtitle-2" fontWeight="400" />
-      </li>
-    </ul>
+        <div class="modal-details">
+    <div v-for="(detail, index) in formattedDetails" :key="index" class="detail-item">
+        <Text :text='" ⤿ " + detail' variant="subtitle-2" fontWeight="400" />
+    </div>
+    </div>
+
   </v-card>
 </v-dialog>
 
