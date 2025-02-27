@@ -110,7 +110,7 @@
         : props.color === "yellow-gold"
         ? "#FFD700"
         : props.color === "gray"
-        ? "#4f5d76a8"
+        ? "#4f5d76dc"
         : props.color === "dark-gray"
         ? "#b0b3b8"
         : props.color === "white"
@@ -206,7 +206,7 @@
     color: #444e5c !important;
   }
   .gray {
-    color: #4f5d76a8 !important;
+    color: #4f5d76dc !important;
   }
   .light-gray {
     color: #ccd1db !important;

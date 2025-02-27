@@ -25,7 +25,7 @@
 
 
 
-  <v-row justify="center" class="d-flex  align-center my-n10">
+  <v-row justify="center" class="d-flex  align-center ">
     <ButtonGradient
       text="LinkedIn"
       :iconSrc="linkedinIcon"
@@ -43,13 +43,13 @@ class="mr-4"
     />
   </v-row>
 
-  <v-row justify="center" class="d-flex  align-center mt-n10">
+  <v-row class="d-flex  align-center">
   <div class="story-banner ">
     <div class="story-content">
       <span class="story-title">
         <Text
         text="story"
-        variant="display-5"
+        :variant="isMobile ? 'display-3' : 'display-5'"
         fontWeight="500"
         class="custom-font "
       />
@@ -57,7 +57,7 @@ class="mr-4"
       <div class="story-text">
         <Text
         text="check more"
-        variant="headline"
+        :variant="isMobile ? 'title' : 'headline'"
         fontWeight="300"
         color="dark-gray"
         class="custom-font "
@@ -65,7 +65,7 @@ class="mr-4"
       /><br>
       <Text
         text="stories here"
-        variant="headline"
+        :variant="isMobile ? 'title' : 'headline'"
         fontWeight="300"
         color="dark-gray"
         class="custom-font "
@@ -84,7 +84,8 @@ class="mr-4"
   </div>
   </v-row>
     <v-row justify="center" class="mb-5">
-        <v-col cols="8">
+      <v-col :cols="isMobile ? 12 : 8">
+
 
       <div
         v-for="story in stories"
@@ -100,11 +101,26 @@ class="mr-4"
   </template>
   
   <script setup>
-  import { ref } from "vue";
+import { ref, computed,onMounted,onUnmounted } from "vue";
   import Text from "../Reusable/Text.vue";
   import ButtonGradient from "../Reusable/ButtonGradient.vue";
   import mediumIcon from '@/assets/medium.svg'; 
   import linkedinIcon from '@/assets/linkedin.svg';
+
+  const isMobile = ref(false); // Initialize as false to prevent SSR errors
+  const updateScreenSize = () => {
+  isMobile.value = window.innerWidth <= 768;
+};
+
+onMounted(() => {
+  isMobile.value = window.innerWidth <= 768; // Set initial value
+  window.addEventListener("resize", updateScreenSize);
+});
+
+onUnmounted(() => {
+  window.removeEventListener("resize", updateScreenSize);
+});
+
 
   const stories = ref([
     {
@@ -120,6 +136,8 @@ class="mr-4"
   if (url) {
     window.open(url, "_blank"); // Opens link in a new tab
   }
+
+
 };
 
   </script>
@@ -161,7 +179,7 @@ class="mr-4"
   flex-direction: column;
   align-items: center; 
   width: 100%;
-  max-width: 500px;
+  max-width: 250;
   height: 120px;
   background: url('@/assets/story-bg.svg') no-repeat center;
   background-size: cover;
@@ -171,6 +189,8 @@ class="mr-4"
   opacity: 0.8; /* Make it slightly faded */
   transition: filter 0.3s ease, opacity 0.3s ease, transform 0.3s ease;
 }
+@media (max-width: 768px) {}
+@media (max-width: 430px) {}
 .story-banner:hover {
   filter: blur(0px); /* Remove blur on hover */
   opacity: 1; /* Make it fully visible */

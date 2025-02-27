@@ -3,15 +3,15 @@
     <v-container class="custom-navbar">
       <v-toolbar-items class="d-flex">
         <router-link to="/">
-          <img src="@/assets/images/Jenny2.svg" alt="Logo" class="w-28" />
+          <img src="@/assets/images/Jenny2.svg" alt="Logo" class="w-28 img-logo" />
 
         </router-link>
       
         <v-row class="mt-3">
           <div class="nav-links" v-show="!isMobile">
             <v-btn to="/work" class="nav-link" text>
-              <div class="badge-container">
-                <span class="custom-badge">14</span>
+              <div class="badge-container ">
+                <span class="custom-badge ">14</span>
                 <Text
                 text="work"
                 variant="subtitle-1"
@@ -148,40 +148,76 @@
         :class="{ 'menu-bar-dark ': isDarkMode }"
         ></div>
       </div>
+      <div class="sidebar-header">
+      <div class="profile-container">
+        <!-- First Column: Profile Picture -->
+        <div class="profile-picture">
+          <img src="@/assets/images/jen.png" alt="Profile Picture" class="profile-img" />
+        </div>
+
+        <!-- Second Column: Logo, Name, and Caption -->
+        <div class="profile-details">
+          <img src="@/assets/images/Jenny2.svg" alt="Logo"  class="mb-n5 ml-n4"/>
+          <Text
+                text="Jennefer Lee"
+                variant="subtitle-1"
+                fontWeight="bold"
+                :gradient="'linear-gradient(90deg, #5b7fff, #f44f8a)'"
+                class="custom-font"
+            /><br>
+            <Text
+                text="dream big, work hard, stay focused"
+                variant="caption"
+                fontWeight="500"
+            color="gray"
+     
+            />
+        </div>
+      </div>
+    </div>
       <div class="sidebar-content">
         <ul class="nav-links">
-          <li>
-            <router-link to="/work" class="nav-link"
-              >   <Text
+          <li  class="mb-5">
+            <router-link to="/" class="nav-links" @click="toggleMenu">   <Text
+                text="home"
+                variant="subtitle-1"
+              /><img src="@/assets/images/home.svg" alt="Work Icon" class="nav-icon" /> </router-link>
+          </li>
+          <li class="mb-5">               
+
+            <router-link to="/work" class="nav-links" @click="toggleMenu"
+              >
+              <Text
                 text="work"
                 variant="subtitle-1"
               />
               <div class="badge-container">
                 <span class="custom-badge">14</span>
-              </div></router-link
+              </div>              <img src="@/assets/images/work.svg" alt="Work Icon" class="nav-icon" />
+</router-link
             >
           </li>
-          <li>
-            <router-link to="/about" class="nav-link">   <Text
+          <li  class="mb-5">
+            <router-link to="/about" class="nav-links" @click="toggleMenu">   <Text
                 text="about"
                 variant="subtitle-1"
-              /></router-link>
+              /><img src="@/assets/images/about.svg" alt="Work Icon" class="nav-icon" /> </router-link>
           </li>
-          <li>
-            <router-link to="/journey" class="nav-link"
-              ><Text
+          <li  class="mb-5">
+            <router-link to="/journey" class="nav-links" @click="toggleMenu"
+              > <Text
                 text="journey"
                 variant="subtitle-1"
                 fontWeight="bold"
                 :gradient="'linear-gradient(90deg, #5b7fff, #f44f8a)'"
                 class=""
-            /></router-link>
+            /><img src="@/assets/images/timeline.svg" alt="Work Icon" class="nav-icon" /></router-link>
           </li>
-          <li>
-            <router-link to="/story" class="nav-link">   <Text
+          <li  class="mb-5">
+            <router-link to="/story" class="nav-links" @click="toggleMenu">  <Text
                 text="story"
                 variant="subtitle-1"
-              /></router-link>
+              /> <img src="@/assets/images/story.svg" alt="Work Icon" class="nav-icon" /> </router-link>
           </li>
         </ul>
       </div>
@@ -264,7 +300,7 @@ onUnmounted(() => {
 
 .custom-badge {
   position: absolute;
-  top: -21px;
+  top: -16px;
   right: -16px;
   background-color: #ff3b30 !important;
   color: white;
@@ -294,7 +330,7 @@ onUnmounted(() => {
   top: 39px; /* Adjust as needed */
   cursor: pointer;
   position: fixed; /* Ensure it stays fixed */
-  right: 30px; /* Align to the right */
+  right: 45px; /* Align to the right */
   z-index: 200; /* Higher than the sidebar */
 }
 .menu-bar {
@@ -364,10 +400,13 @@ onUnmounted(() => {
   right: 0;
   width: 300px;
   height: 100vh;
-  background-color: rgba(255, 255, 255, 0.3);
+  background-color: rgba(224, 223, 223, 0.3);
   color: white;
   padding: 20px;
-  backdrop-filter: blur(74px); /* Apply blur effect */
+  backdrop-filter: blur(12px);
+  box-shadow: inset 1px 0 10px rgba(255, 255, 255, 0.62),
+    0 4px 10px rgba(0, 0, 0, 0); /* Inner & outer shadow for depth */
+  border: 1px solid rgba(255, 255, 255, 0.264); /* Adds glassy border */
   transition: transform 0.3s ease;
   transform: translateX(100%);
   z-index: 100;
@@ -442,8 +481,58 @@ onUnmounted(() => {
   gap: 20px; /* Adjust the gap size as needed */
 }
 }
+@media (max-width: 430px) {
+  .custom-navbar {
+    width: 88%; /* Adjust width for smaller screens */
+    border-radius: 20px; /* Optional: Adjust border radius for mobile */
+  }
+  .img-logo{
+    width: 70px; 
+    margin-left:-12px ;
+    margin-top: 2px;
+  }
+  .v-toolbar-items {
+    display: none; /* Hide the regular navbar items on mobile */
+  }
+  .nav-links {
+    text-align: right;
+    text-decoration: none;
+    list-style-type: none;
+  }
+  .badge-container {
+    position: relative;
+    display: inline-block;
+    margin-bottom: 10px;
+  }
 
-/* TOGGLE */
+  .mobile-menu {
+    display: flex; /* Show mobile menu when open */
+  }
+  .svg-container {
+  margin-right: 5px;margin-left: 13px;
+  display: flex;
+  gap: 15px; 
+
+}
+.container {
+  height: 40% !important;
+  width: 10% !important;
+  display: grid;
+  place-items: center;
+  margin-top: -8px;
+}
+.toggle {
+  height: 25px !important; /* Adjusted height */
+  width: 50px !important; /* Adjusted width */
+  border-radius: 9999px;
+  background: linear-gradient(to bottom, #6ec8ff, #1f73a7);
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  box-shadow: 3px 3px 2px #0000003d;
+}
+
+}
 /* TOGGLE */
 *,
 *::before,
@@ -629,5 +718,57 @@ onUnmounted(() => {
   transform: rotate(10deg);
   top: 20%;
 }
+.nav-icon {
+  width: 22px; /* Adjust the size of the icon */
+  height: 25px; /* Adjust the size of the icon */
+  margin-left: 20px; /* Space between the icon and the text */
+  vertical-align: middle; /* Align the icon with the text */
+  transition: filter 0.3s ease; 
+   filter: brightness(0.5) saturate(100%); /* Make the icon black by default */
+
+}
+
+/* Dark mode icon styling */
+.dark-mode .nav-icon {
+  filter: brightness(0) invert(1); /* Make the icon white in dark mode */
+}
+
+
+/* HEADER SIDENAV */
+.sidebar-header { margin-top: 10px;
+  background: linear-gradient(to bottom, rgba(221, 183, 237, 0.632), rgba(10, 25, 137, 0)); /* Transparent gradient */
+  padding: 20px;border-radius: 20PX;
+
+}
+
+.profile-container {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.profile-picture {
+  flex: 0 0 auto; /* Prevent resizing */
+}
+
+.profile-img {
+  width: 80px; /* Adjust size */
+  height: 80px; /* Adjust size */
+  border-radius: 50%; /* Circular image */
+  border: 2px solid rgba(255, 255, 255, 0.3); 
+  margin-bottom: -10px;
+}
+
+.profile-details {
+  flex: 1; /* Take remaining space */
+}
+
+.full-name {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #ffffff; /* White text */
+  margin: 0;
+}
+
 
 </style>

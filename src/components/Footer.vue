@@ -11,14 +11,14 @@
       />
       <!-- Navigation Links -->
       <div class="footer-links">
-        <a
+        <router-link
           v-for="(link, index) in links"
           :key="index"
-          href="#"
+          :to="link.path"
           class="footer-link"
         >
-          {{ link }}
-        </a>
+          {{ link.name }}
+        </router-link>
       </div>
 
       <!-- Quote with Decorative Lines -->
@@ -37,13 +37,12 @@
 
   // Footer links
   const links = ref([
-    "links",
-    "works",
-    "stories",
-    "tech stack",
-    "version",
-    "connect",
-  ]);
+  { name: "works", path: "/work" },
+  { name: "stories", path: "/story" },
+  { name: "about", path: "/about" },
+  { name: "connect", path: "/inquiry" },
+  { name: "version", path: "/version" }
+]);
 </script>
 
 <style scoped>
