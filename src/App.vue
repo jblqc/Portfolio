@@ -43,7 +43,7 @@
   </div>
 </template>
 <script setup>
-  import { computed } from "vue";
+  import { computed,onMounted } from "vue";
   import { useHomeStore } from "@/stores/useHomeStore";
   import NavBar from "@/components/NavBar.vue";
   import Footer from "./components/Footer.vue";
