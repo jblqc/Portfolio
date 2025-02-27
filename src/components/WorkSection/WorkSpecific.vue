@@ -1,14 +1,11 @@
 <template>
   <div v-if="isDataLoaded">
-    <v-row justify="center" class="mb-5">
+    <v-row class="mb-5">
       <v-row justify="center">
         <v-col cols="7">
           <v-row justify="center">
             <v-col cols="12" class="text-center">
-              <div
-                class="project-logo-container"
-                
-              >
+              <div class="project-logo-container">
                 <img
                   crossOrigin="anonymous"
                   ref="projectImage"
@@ -66,8 +63,10 @@
                 :color="'black'"
                 class="description"
               />
-              <v-container class="details-card mt-3 mb-3"
-              :class="{ 'details-card-black': isDarkMode }">
+              <v-container
+                class="details-card mt-3 mb-3"
+                :class="{ 'details-card-black': isDarkMode }"
+              >
                 <v-row no-gutters>
                   <v-col
                     v-for="(detail, index) in projectDetailsArray"
@@ -115,8 +114,9 @@
                       :color="'black'"
                     />
                     <div
-                    class="go-button mt-1 ml-2"
-              :class="{ 'go-button-black': isDarkMode }"                      @click="openLink(linkObj.url)"
+                      class="go-button mt-1 ml-2"
+                      :class="{ 'go-button-black': isDarkMode }"
+                      @click="openLink(linkObj.url)"
                       style="display: flex; align-items: center"
                     >
                       <svg
@@ -154,7 +154,7 @@
         class="mt-5"
         v-if="project.id === 1 || project.id === 11"
       >
-        <Text text="Watch the Video" variant="h5" fontWeight="600" />
+        <Text text="Watch the Video" variant="subtitle-1" fontWeight="600" />
 
         <v-col cols="12" class="text-center">
           <iframe
@@ -171,7 +171,7 @@
           ></iframe>
         </v-col>
       </v-row>
-      <v-row v-if="designOneImages.length > 0" justify="center ">
+      <v-row v-if="designOneImages.length > 0">
         <v-col cols="12">
           <v-row justify="center" class="design-row">
             <v-col
@@ -235,13 +235,13 @@
 </template>
 
 <script setup>
-  import { computed, ref, onMounted, watch ,onUnmounted, nextTick} from "vue";
+  import { computed, ref, onMounted, watch, onUnmounted, nextTick } from "vue";
   import { useRoute } from "vue-router";
   import { useWorkStore } from "@/stores/useWorkStore";
   import { useHomeStore } from "@/stores/useHomeStore";
   import { useRouter } from "vue-router";
   import BackButton from "../Reusable/BackButton.vue";
-  import sizeOf from "image-size"; 
+  import sizeOf from "image-size";
 
   import Text from "../Reusable/Text.vue";
   import ColorThief from "colorthief";
@@ -560,14 +560,17 @@
     }
     isDataLoaded.value = true; // Set the loading state to true after data is fetched
   });
-  watch(() => route.params.id, (newId) => {
-  console.log("Project changed:", newId);
-});
+  watch(
+    () => route.params.id,
+    (newId) => {
+      console.log("Project changed:", newId);
+    }
+  );
   onUnmounted(() => {
-  nextTick(() => {
-    console.log("WorkSpecific.vue unmounted safely");
+    nextTick(() => {
+      console.log("WorkSpecific.vue unmounted safely");
+    });
   });
-});
 </script>
 
 <style scoped>

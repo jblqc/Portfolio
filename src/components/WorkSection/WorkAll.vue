@@ -27,7 +27,7 @@
     <span class="decor">☙</span>
   </v-row>
   <!-- Category Tabs -->
-  <v-row justify="center mt-10">
+  <v-row class="mt-10">
     <v-col cols="12" class="text-center">
       <div class="category-toggle">
         <div class="tab-slider" :style="sliderStyle"></div>
@@ -107,14 +107,16 @@
             class="mt-2"
           />
 
-          <div class="go-button"
-          :class="{ 'go-button-black': isDarkMode }"
-           
- @click="navigateToProject(project.id)">
+          <div
+            class="go-button"
+            :class="{ 'go-button-black': isDarkMode }"
+            @click="navigateToProject(project.id)"
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 20 20"
-              :fill="isDarkMode ? 'white' : 'black'"               width="20"
+              :fill="isDarkMode ? 'white' : 'black'"
+              width="20"
             >
               <path
                 fill-rule="evenodd"
@@ -237,5 +239,4 @@
     font-size: 1.2rem;
     color: black;
   }
-
 </style>
