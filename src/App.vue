@@ -43,15 +43,19 @@
   </div>
 </template>
 <script setup>
-import { computed} from "vue";
+  import { computed } from "vue";
   import { useHomeStore } from "@/stores/useHomeStore";
-
   import NavBar from "@/components/NavBar.vue";
   import Footer from "./components/Footer.vue";
   const homeStore = useHomeStore();
 
   const isDarkMode = computed(() => homeStore.isDarkMode);
-
+  onMounted(() => {
+    const script = document.createElement("script");
+    script.src = "/_vercel/insights/script.js";
+    script.defer = true;
+    document.head.appendChild(script);
+  });
 </script>
 <style>
   /* Light Mode */
@@ -68,11 +72,11 @@ import { computed} from "vue";
   }
 
   .v-timeline-divider__after {
-  background-color: rgba(var(--v-border-color), var(--v-border-opacity));
-}
-.dark-mode .v-timeline-divider__after  {
-  background-color: white !important;
-}
+    background-color: rgba(var(--v-border-color), var(--v-border-opacity));
+  }
+  .dark-mode .v-timeline-divider__after {
+    background-color: white !important;
+  }
   /* Dark Mode */
   .noise-bg-dark {
     width: 100%;
@@ -156,7 +160,7 @@ import { computed} from "vue";
   }
   /* OVERRIDE */
   /* Remove all: unset and replace with specific overrides */
-  .v-container{
-  padding: 0px !important;
-}
+  .v-container {
+    padding: 0px !important;
+  }
 </style>
