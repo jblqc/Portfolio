@@ -43,17 +43,19 @@
   </div>
 </template>
 <script setup>
-  import { computed,onMounted } from "vue";
+  import { computed, onMounted } from "vue";
   import { useHomeStore } from "@/stores/useHomeStore";
   import NavBar from "@/components/NavBar.vue";
   import Footer from "./components/Footer.vue";
   const homeStore = useHomeStore();
 
   const isDarkMode = computed(() => homeStore.isDarkMode);
+
   onMounted(() => {
     const script = document.createElement("script");
-    script.src = "/_vercel/insights/script.js";
+    script.src = "/analytics.js"; // Change from "/_vercel/insights/script.js" to a custom path
     script.defer = true;
+    script.onload = () => console.log("Analytics script loaded.");
     document.head.appendChild(script);
   });
 </script>
