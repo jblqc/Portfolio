@@ -532,8 +532,9 @@
       display: none; /* Hide regular navbar items */
     }
     .nav-links {
-      text-align: center;
-      list-style: none;
+      text-align: right;
+      text-decoration: none;
+      list-style-type: none;
     }
     .badge-container {
       margin-bottom: 8px;
