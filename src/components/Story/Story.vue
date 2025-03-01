@@ -83,25 +83,27 @@ class="mr-4"
     </div>
   </div>
   </v-row>
-    <v-row justify="center" class="mb-5">
-      <v-col :cols="isMobile ? 12 : 8">
+  <v-row justify="center" class="mb-5">
+  <v-col :cols="isMobile ? 12 : 8">
+    <div
+      v-for="story in stories"
+      :key="story.id"
+      class="story-card cursor"
+      @click="openLink(story.link)"
+    >
+      <Text :text="story.title" variant="body-1" fontWeight="600" class="mb-2" />
+      <Text :text="story.caption" variant="subtitle-1" color="dark-gray" class="mb-2"/>
+      <Text :text="`${story.date} • ${story.tag}`" variant="caption" color="gray" class="mb-2" />
+    </div>
+  </v-col>
+</v-row>
 
-
-      <div
-        v-for="story in stories"
-        :key="story.id"
-        class="story-card cursor"      @click="openLink(story.link)"
-
-      >
-        <Text :text="story.title" variant="body-1" fontWeight="600" class="mb-2" />
-        <Text :text="story.caption" variant="subtitle-1" color="dark-gray" class="mb-2"/>
-        <Text :text="`${story.date} • ${story.tag}`" variant="caption" color="gray" class="mb-2" />
-      </div></v-col>
-    </v-row>
   </template>
   
   <script setup>
-import { ref, computed,onMounted,onUnmounted } from "vue";
+import { onMounted, computed, ref, onUnmounted } from "vue";
+import { useStoriesStore } from "@/stores/useStoriesStore"; // Import Pinia store
+
   import Text from "../Reusable/Text.vue";
   import ButtonGradient from "../Reusable/ButtonGradient.vue";
   import mediumIcon from '@/assets/medium.svg'; 
@@ -111,6 +113,11 @@ import { ref, computed,onMounted,onUnmounted } from "vue";
   const updateScreenSize = () => {
   isMobile.value = window.innerWidth <= 768;
 };
+// Initialize the stories store
+const storiesStore = useStoriesStore();
+
+// Computed property to access stories from the store
+const stories = computed(() => storiesStore.stories);
 
 onMounted(() => {
   isMobile.value = window.innerWidth <= 768; // Set initial value
@@ -122,17 +129,13 @@ onUnmounted(() => {
 });
 
 
-  const stories = ref([
-    {
-      id: 1,
-      title: "The Journey of NecessiPick: From Capstone to International Conference",
-      caption: "How refining our student project led to global recognition.",
-      date: "Feb 26, 2025",
-      tag: "Research & Innovation",
-      link: "https://medium.com/@jenneferlee23/from-capstone-to-conference-how-refining-our-project-led-to-icicct-2024-af230b5ecc36"
 
-    }
-  ]);const openLink = (url) => {
+// Fetch stories when the component is mounted
+onMounted(() => {
+  storiesStore.fetchStories();
+});
+
+  const openLink = (url) => {
   if (url) {
     window.open(url, "_blank"); // Opens link in a new tab
   }
