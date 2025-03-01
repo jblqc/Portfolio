@@ -14,24 +14,22 @@
         fontWeight="400"
         :color="'black'"
         class="description"
-      /> 
+      />
       <v-row class="footer-quote">
-    <span class="decor">❧</span>
-    <span class="dot">ִֶָ𓂃 ࣪˖ ִֶָ🐇་༘࿐</span>
-    <span class="decor">☙</span>
-  </v-row>
+        <span class="decor">❧</span>
+        <span class="dot">ִֶָ𓂃 ࣪˖ ִֶָ🐇་༘࿐</span>
+        <span class="decor">☙</span>
+      </v-row>
     </v-col>
   </v-row>
 
-
-
-  <v-row justify="center" class="d-flex  align-center ">
+  <v-row justify="center" class="d-flex align-center">
     <ButtonGradient
       text="LinkedIn"
       :iconSrc="linkedinIcon"
       gradient="linear-gradient(270deg, rgb(240, 214, 255) 0%, rgb(211, 205, 255) 100%)"
       textColor="#a060c4"
-class="mr-4"
+      class="mr-4"
     />
 
     <ButtonGradient
@@ -39,49 +37,47 @@ class="mr-4"
       :iconSrc="mediumIcon"
       gradient="linear-gradient(270deg, rgb(251, 206, 255) 0%, rgb(255, 209, 209) 100%)"
       textColor="#d000a6cc"
-
     />
   </v-row>
 
-  <v-row class="d-flex  align-center">
-  <div class="story-banner ">
-    <div class="story-content">
-      <span class="story-title">
-        <Text
-        text="story"
-        :variant="isMobile ? 'display-3' : 'display-5'"
-        fontWeight="500"
-        class="custom-font "
-      />
-      <span class="dot-story">.</span></span>
-      <div class="story-text">
-        <Text
-        text="check more"
-        :variant="isMobile ? 'title' : 'headline'"
-        fontWeight="300"
-        color="dark-gray"
-        class="custom-font "
-
-      /><br>
-      <Text
-        text="stories here"
-        :variant="isMobile ? 'title' : 'headline'"
-        fontWeight="300"
-        color="dark-gray"
-        class="custom-font "
-      /><br>
-      <Text
-        text="MEDIUM@JENNEFER.LEE"
-        variant="caption"
-        fontWeight="600"
-        color="dark-gray "
-        class="cursor"
-         @click="openLink('https://medium.com/@jenneferlee23')"
-
-      />
+  <v-row class="d-flex align-center">
+    <div class="story-banner">
+      <div class="story-content">
+        <span class="story-title">
+          <Text
+            text="story"
+            :variant="isMobile ? 'display-3' : 'display-5'"
+            fontWeight="500"
+            class="custom-font"
+          />
+          <span class="dot-story">.</span></span
+        >
+        <div class="story-text">
+          <Text
+            text="check more"
+            :variant="isMobile ? 'title' : 'headline'"
+            fontWeight="300"
+            color="dark-gray"
+            class="custom-font"
+          /><br />
+          <Text
+            text="stories here"
+            :variant="isMobile ? 'title' : 'headline'"
+            fontWeight="300"
+            color="dark-gray"
+            class="custom-font"
+          /><br />
+          <Text
+            text="MEDIUM@JENNEFER.LEE"
+            variant="caption"
+            fontWeight="600"
+            color="dark-gray"
+            class="cursor"
+            @click="openLink('https://medium.com/@jenneferlee23')"
+          />
+        </div>
       </div>
     </div>
-  </div>
   </v-row>
   <v-row justify="center" class="mb-5">
   <v-col :cols="isMobile ? 12 : 8">
@@ -106,8 +102,8 @@ import { useStoriesStore } from "@/stores/useStoriesStore"; // Import Pinia stor
 
   import Text from "../Reusable/Text.vue";
   import ButtonGradient from "../Reusable/ButtonGradient.vue";
-  import mediumIcon from '@/assets/medium.svg'; 
-  import linkedinIcon from '@/assets/linkedin.svg';
+  import mediumIcon from "@/assets/medium.svg";
+  import linkedinIcon from "@/assets/linkedin.svg";
 
   const isMobile = ref(false); // Initialize as false to prevent SSR errors
   const updateScreenSize = () => {
@@ -119,15 +115,14 @@ const storiesStore = useStoriesStore();
 // Computed property to access stories from the store
 const stories = computed(() => storiesStore.stories);
 
-onMounted(() => {
-  isMobile.value = window.innerWidth <= 768; // Set initial value
-  window.addEventListener("resize", updateScreenSize);
-});
+  onMounted(() => {
+    isMobile.value = window.innerWidth <= 768; // Set initial value
+    window.addEventListener("resize", updateScreenSize);
+  });
 
-onUnmounted(() => {
-  window.removeEventListener("resize", updateScreenSize);
-});
-
+  onUnmounted(() => {
+    window.removeEventListener("resize", updateScreenSize);
+  });
 
 
 // Fetch stories when the component is mounted
@@ -150,69 +145,67 @@ onMounted(() => {
     padding: 16px;
     border-radius: 12px;
     display: flex;
-  flex-direction: column;
+    flex-direction: column;
   }
-  
+
   .story-card:hover {
     background: linear-gradient(
-    135deg,
-    rgba(255, 0, 150, 0.1),
-    rgba(0, 150, 255, 0.1)
-  );  transition: 0.3s ease-in-out;  }
-
-  
-.story-card:hover .story-card-black {
-  backdrop-filter: blur(20px) brightness(1.2); /* Stronger blur & brightness */
-  background: linear-gradient(
       135deg,
-      rgba(251, 153, 210, 0.7),
-      rgba(64, 154, 218, 0.3)
-    ),
-    radial-gradient(
-      circle at top left,
-      rgba(255, 255, 255, 0.4) 10%,
-      transparent 50%
-    ); /* Adds a glossy highlight */
-  box-shadow: inset 0 0 10px rgba(255, 255, 255, 0.109),
-    0 4px 10px rgba(0, 0, 0, 0.2); /* Inner & outer shadow for depth */
-  border: 1px solid rgba(255, 255, 255, 0.2); /* Adds glassy border */
-}
-.story-banner {
-  display: flex;
-  flex-direction: column;
-  align-items: center; 
-  width: 100%;
-  max-width: 250;
-  height: 120px;
-  background: url('@/assets/story-bg.svg') no-repeat center;
-  background-size: cover;
-  border-radius: 12px;
-  padding: 20px;
-  filter: blur(0.4px); /* Apply initial blur */
-  opacity: 0.8; /* Make it slightly faded */
-  transition: filter 0.3s ease, opacity 0.3s ease, transform 0.3s ease;
-}
-@media (max-width: 768px) {}
-@media (max-width: 430px) {}
-.story-banner:hover {
-  filter: blur(0px); /* Remove blur on hover */
-  opacity: 1; /* Make it fully visible */
-  transform: scale(1.05); /* Slightly enlarge */
-}
-.story-content {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-}
+      rgba(255, 0, 150, 0.1),
+      rgba(0, 150, 255, 0.1)
+    );
+    transition: 0.3s ease-in-out;
+  }
 
+  .story-card:hover .story-card-black {
+    backdrop-filter: blur(20px) brightness(1.2); /* Stronger blur & brightness */
+    background: linear-gradient(
+        135deg,
+        rgba(251, 153, 210, 0.7),
+        rgba(64, 154, 218, 0.3)
+      ),
+      radial-gradient(
+        circle at top left,
+        rgba(255, 255, 255, 0.4) 10%,
+        transparent 50%
+      ); /* Adds a glossy highlight */
+    box-shadow: inset 0 0 10px rgba(255, 255, 255, 0.109),
+      0 4px 10px rgba(0, 0, 0, 0.2); /* Inner & outer shadow for depth */
+    border: 1px solid rgba(255, 255, 255, 0.2); /* Adds glassy border */
+  }
+  .story-banner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 250;
+    height: 120px;
+    background: url("@/assets/story-bg.svg") no-repeat center;
+    background-size: cover;
+    border-radius: 12px;
+    padding: 20px;
+    filter: blur(0.4px); /* Apply initial blur */
+    opacity: 0.8; /* Make it slightly faded */
+    transition: filter 0.3s ease, opacity 0.3s ease, transform 0.3s ease;
+  }
+  @media (max-width: 768px) {
+  }
+  @media (max-width: 430px) {
+  }
+  .story-banner:hover {
+    filter: blur(0px); /* Remove blur on hover */
+    opacity: 1; /* Make it fully visible */
+    transform: scale(1.05); /* Slightly enlarge */
+  }
+  .story-content {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
 
-.dot-story {
-  color: black;
-  font-size: 50px;
-  font-weight: bold;
-}
-
-
-
-  </style>
-  
+  .dot-story {
+    color: black;
+    font-size: 50px;
+    font-weight: bold;
+  }
+</style>

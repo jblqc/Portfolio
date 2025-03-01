@@ -41,7 +41,7 @@
         :color="'black'"
         class="description mb-4"
       />
-      <v-row justify="center mb-6">
+      <v-row class="mb-6">
         <img src="@/assets/images/bpi.jpeg" alt="Loading..." class="design2" />
       </v-row>
       <Text
@@ -70,16 +70,14 @@
         <div
           class="go-button mt-1 ml-2 cursor"
           :class="{ 'go-button-black': isDarkMode }"
-
           @click="openInquiry"
           style="display: flex; align-items: center"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 20 20"
-            width="20"   
-            :fill="isDarkMode ? 'white' : 'black'"              
-
+            width="20"
+            :fill="isDarkMode ? 'white' : 'black'"
           >
             <path
               fill-rule="evenodd"
@@ -95,30 +93,30 @@
   <TechLogos />
 </template>
 <script setup>
-import { useHomeStore } from "@/stores/useHomeStore";
-import { useRouter } from "vue-router";
-import { computed} from "vue";
+  import { useHomeStore } from "@/stores/useHomeStore";
+  import { useRouter } from "vue-router";
+  import { computed } from "vue";
 
-import Text from "../Reusable/Text.vue";
-import ImageGallery from "../Reusable/ImageGallery.vue";
-import TechLogos from "../HeroSection/TechLogos.vue";
-const homeStore = useHomeStore();
-const router = useRouter(); // Initialize router
-const isDarkMode = computed(() => homeStore.isDarkMode);
+  import Text from "../Reusable/Text.vue";
+  import ImageGallery from "../Reusable/ImageGallery.vue";
+  import TechLogos from "../HeroSection/TechLogos.vue";
+  const homeStore = useHomeStore();
+  const router = useRouter(); // Initialize router
+  const isDarkMode = computed(() => homeStore.isDarkMode);
 
-const openInquiry = () => {
-  router.push("/inquiry"); // Navigate to /work
-};
+  const openInquiry = () => {
+    router.push("/inquiry"); // Navigate to /work
+  };
 </script>
 <style scoped>
-.grad-image {
-  max-width: 300px;
-  height: auto;
-  border-radius: 10px; /* Optional: Adds rounded corners */
-}
-.image {
-  max-width: 450px;
-  height: auto;
-  border-radius: 10px;
-}
+  .grad-image {
+    max-width: 300px;
+    height: auto;
+    border-radius: 10px; /* Optional: Adds rounded corners */
+  }
+  .image {
+    max-width: 450px;
+    height: auto;
+    border-radius: 10px;
+  }
 </style>
