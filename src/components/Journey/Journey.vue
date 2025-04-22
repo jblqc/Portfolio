@@ -151,10 +151,19 @@
 
 <script setup>
 import { ref, computed, onMounted, onUnmounted } from "vue";
-import Text from "../Reusable/Text.vue";
-import TechLogos from "../HeroSection/TechLogos.vue";
 import { useHomeStore } from "@/stores/useHomeStore";
 import { useRouter } from "vue-router";
+import Text from "../Reusable/Text.vue";
+import TechLogos from "../HeroSection/TechLogos.vue";
+import gerryImage from "@/assets/images/timeline/gerry.png";
+import digitalImage from "@/assets/images/timeline/digital.png";
+import projectsImage from "@/assets/images/timeline/projects.png";
+import ojtImage from "@/assets/images/timeline/ojt.png";
+import simpleviaImage from "@/assets/images/timeline/simplevia.png";
+import icicctImage from "@/assets/images/timeline/icicct.png";
+import bpiImage from "@/assets/images/timeline/BPI.png";
+import publishImage from "@/assets/images/timeline/publish.png";
+import awsImage from "@/assets/images/timeline/aws.JPG";
 
 const homeStore = useHomeStore();
 const isDarkMode = computed(() => homeStore.isDarkMode);
@@ -166,6 +175,7 @@ const openLink = (url) => {
   window.open(url, "_blank");
 };
 
+
 const timelineItems = ref([
   {
     id: 1,
@@ -174,7 +184,7 @@ const timelineItems = ref([
     labels: ["award", "leadership"],
     description:
       "Recipient of the Gerry Roxas Leadership Award and President of Perpetual Help College of Manila SC.",
-    image: "/src/assets/images/gerry.png",
+    image: gerryImage,
   },
   {
     id: 2,
@@ -182,7 +192,7 @@ const timelineItems = ref([
     title: "Freelance Graphic Artist",
     labels: ["freelance", "design"],
     description: "Worked as a self-employed freelance graphic artist.",
-    image: "/src/assets/images/digital.png",
+    image: digitalImage,
   },
   {
     id: 3,
@@ -191,7 +201,7 @@ const timelineItems = ref([
     labels: ["development", "projects"],
     description:
       "Developed various systems including an NFT Marketplace, Recipe Management System, Veterinary Clinic Appointment System, Voting Management System, and Chatbot Assistance System.",
-    image: "/src/assets/images/projects.png",
+    image: projectsImage,
   },
   {
     id: 4,
@@ -200,7 +210,7 @@ const timelineItems = ref([
     labels: ["internship", "frontend"],
     description:
       "Worked as a frontend developer intern at Simplevia Technologies Inc.",
-    image: "/src/assets/images/ojt.png",
+    image: ojtImage,
   },
   {
     id: 5,
@@ -209,7 +219,7 @@ const timelineItems = ref([
     labels: ["career", "job"],
     description:
       "Currently working as a Frontend Software Engineer at Simplevia Technologies Inc.",
-    image: "/src/assets/images/simplevia.png",
+    image: simpleviaImage,
   },
   {
     id: 6,
@@ -218,7 +228,7 @@ const timelineItems = ref([
     labels: ["conference", "research"],
     description:
       "Presented the research paper 'NecessiPick' at the 8th International Conference on Inventive Communication and Computational Technologies (ICICCT).",
-    image: "/src/assets/images/icicct.png",
+    image: icicctImage,
   },
   {
     id: 7,
@@ -227,7 +237,7 @@ const timelineItems = ref([
     labels: ["award", "competition"],
     description:
       "Recognized as a finalist in the BPI-DOST Innovations Award 2024.",
-    image: "/src/assets/images/BPI.png",
+    image: bpiImage,
   },
   {
     id: 8,
@@ -236,16 +246,15 @@ const timelineItems = ref([
     labels: ["publication", "research"],
     description:
       "Your eBook contribution has been officially published on Springer Nature Link.",
-    image: "/src/assets/images/publish.png",
+    image: publishImage,
   },
   {
     id: 9,
     date: "March 2025 - Present",
     title: "Started AWS Cloud Practitioner Journey",
     labels: ["cloud", "certification"],
-    description:
-      '',
-    image: "/src/assets/images/aws.JPG", // Replace with actual image path
+    description: "",
+    image: awsImage,
   },
 ]);
 
