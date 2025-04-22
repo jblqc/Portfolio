@@ -25,58 +25,60 @@
 
   <v-row justify="center">
     <v-col cols="12" md="9" lg="10">
-      <v-timeline align="start" side="end"  >
+      <v-timeline align="start" side="end">
         <v-timeline-item
           v-for="event in [...timelineItems].reverse()"
           :key="event.id"
-          :dot-color="isDarkMode ? 'purple-lighten-4' : getDotColor(event.labels)"
+          :dot-color="
+            isDarkMode ? 'purple-lighten-4' : getDotColor(event.labels)
+          "
           size="x-small"
           class="timeline-item"
         >
-          <template v-slot:opposite >
+          <template v-slot:opposite>
             <!-- Left Side: Date -->
             <div v-if="!isMobile">
-      <Text
-        :text="event.date"
-        variant="subtitle-1"
-        fontWeight="600"
-        class="tracking-wider"
-      />
-    </div>
+              <Text
+                :text="event.date"
+                variant="subtitle-1"
+                fontWeight="600"
+                class="tracking-wider"
+              />
+            </div>
           </template>
           <Text
             v-if="isMobile"
-              :text="event.date"
-              variant="subtitle-2"
-              fontWeight="500"
-              class="ml-4"
-            />
-          <div class="timeline-content"     :class="{ 'timeline-content-black': isDarkMode }"     
->
+            :text="event.date"
+            variant="subtitle-2"
+            fontWeight="500"
+            class="ml-4"
+          />
+          <div
+            class="timeline-content"
+            :class="{ 'timeline-content-black': isDarkMode }"
+          >
+            <v-chip
+              v-for="(badge, i) in event.labels"
+              :key="i"
+              :color="getBadgeColor(badge)"
+              class="text-caption mr-3 mb-2"
+              size="x-small"
+              v-if="!isDarkMode"
+            >
+              {{ badge }}
+            </v-chip>
 
-<v-chip
-  v-for="(badge, i) in event.labels"
-  :key="i"
-  :color="getBadgeColor(badge)"
-  class="text-caption mr-3 mb-2"
-  size="x-small"
-  v-if="!isDarkMode"
->
-  {{ badge }}
-</v-chip>
-
-<v-chip
-  v-for="(badge, i) in event.labels"
-  :key="'dark-' + i"
-  :color="getBadgeColor(badge)"
-  class="text-caption mr-3 mb-2 dark-mode-chip"
-  size="x-small"
-  :style="{ backgroundColor: getBadgeColor(badge) + ' !important' }"
-  v-else
->
-  {{ badge }}
-</v-chip>
-
+            <v-chip
+              v-for="(badge, i) in event.labels"
+              :key="'dark-' + i"
+              :color="getBadgeColor(badge)"
+              class="text-caption mr-3 mb-2 dark-mode-chip"
+              size="x-small"
+              :style="{ backgroundColor: getBadgeColor(badge) + ' !important' }"
+              v-else
+            >
+              {{ badge }}
+            </v-chip>
 
             <div class="d-flex align-center">
               <Text
@@ -86,12 +88,49 @@
                 class="tracking-wider"
               />
             </div>
-            <Text
-              :text="event.description"
-              variant="subtitle-2"
-              color="dark-gray"
-              class="tracking-wider"
-            />
+            <div class="max">
+              
+                <Text
+                  v-if="event.id !== 9"
+                  :text="event.description"
+                  variant="subtitle-2"
+                  color="dark-gray"
+                  class="tracking-wider"
+                />
+                <div v-else>
+                  <Text
+                  
+                  text="Began studying for the AWS Certified Cloud Practitioner (CLF-C02) 2025 Exam using Stephan Mareek’s course, AWS-provided practice tests, free lessons, and gamified modules."
+                  variant="subtitle-2"
+                  color="dark-gray"
+                  class="tracking-wider"
+                />
+                <div
+                      class="go-button mt-1 cursor w-50"
+                      :class="{ 'go-button-black': isDarkMode }"
+@click="openLink('https://www.canva.com/design/DAGlV5GRs1A/bxu50i9x1FnoaaGshKLvPg/view?utm_content=DAGlV5GRs1A&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h8cc76aa4ff')"                      style="display: flex; align-items: center"
+                    >  <Text
+                  
+                  text="View Lesson Certificates"
+                  variant="caption"
+                  color="dark-gray"
+                  class="tracking-wider"
+                />
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 20 20"
+                        :fill="isDarkMode ? 'white' : 'black'"
+                        width="20"
+                      >
+                        <path
+                          fill-rule="evenodd"
+                          d="M5.22 14.78a.75.75 0 0 0 1.06 0l7.22-7.22v5.69a.75.75 0 0 0 1.5 0v-7.5a.75.75 0 0 0-.75-.75h-7.5a.75.75 0 0 0 0 1.5h5.69l-7.22 7.22a.75.75 0 0 0 0 1.06Z"
+                          clip-rule="evenodd"
+                        />
+                      </svg>
+                    </div>
+                  </div>
+                </div>
 
             <v-img
               v-if="event.image"
@@ -111,7 +150,7 @@
 </template>
 
 <script setup>
-import { ref, computed,onMounted,onUnmounted } from "vue";
+import { ref, computed, onMounted, onUnmounted } from "vue";
 import Text from "../Reusable/Text.vue";
 import TechLogos from "../HeroSection/TechLogos.vue";
 import { useHomeStore } from "@/stores/useHomeStore";
@@ -122,6 +161,9 @@ const isDarkMode = computed(() => homeStore.isDarkMode);
 const isMobile = ref(window.innerWidth <= 768);
 const updateIsMobile = () => {
   isMobile.value = window.innerWidth <= 768;
+};
+const openLink = (url) => {
+  window.open(url, "_blank");
 };
 
 const timelineItems = ref([
@@ -196,6 +238,15 @@ const timelineItems = ref([
       "Your eBook contribution has been officially published on Springer Nature Link.",
     image: "/src/assets/images/timeline/publish.png",
   },
+  {
+    id: 9,
+    date: "March 2025 - Present",
+    title: "Started AWS Cloud Practitioner Journey",
+    labels: ["cloud", "certification"],
+    description:
+      '',
+    image: "/src/assets/images/timeline/aws.JPG", // Replace with actual image path
+  },
 ]);
 
 const reversedTimeline = computed(() => [...timelineItems.value].reverse());
@@ -215,7 +266,9 @@ const getBadgeColor = (type) => {
     conference: "red",
     research: "orange",
     competition: "cyan",
-    publication: "lime",
+    publication: "lime",cloud: "amber",
+certification: "yellow-darken-2",
+
   };
   return colors[type] || "grey";
 };
@@ -235,6 +288,8 @@ const getDotColor = (labels) => {
     research: "#FFCB91", // Warm orange (matches "orange")
     competition: "#BDE0FE", // Light cyan (matches "cyan")
     publication: "#D4F8B3", // Soft lime green (matches "lime")
+    cloud: "#FFF4BF", // Soft yellow
+certification: "#FFE382",
   };
 
   return labels.find((label) => colors[label])
@@ -250,7 +305,6 @@ onMounted(() => {
 onUnmounted(() => {
   window.removeEventListener("resize", updateIsMobile);
 });
-
 </script>
 
 <style scoped>
@@ -259,6 +313,9 @@ onUnmounted(() => {
   padding: 15px;
   border-radius: 10px;
   transition: 0.3s ease-in-out;
+}
+.max {
+  max-width: 400px;
 }
 .dark-mode-chip {
   background-color: var(--chip-bg) !important;
@@ -270,12 +327,12 @@ onUnmounted(() => {
     135deg,
     rgba(255, 0, 150, 0.1),
     rgba(0, 150, 255, 0.1)
-  );  transition: 0.3s ease-in-out;
-
+  );
+  transition: 0.3s ease-in-out;
 }
-
 .timeline-item:hover .timeline-content-black {
-  backdrop-filter: blur(20px) brightness(1.2); /* Stronger blur & brightness */
+  backdrop-filter: blur(20px) brightness(1.2);
+  /* Stronger blur & brightness */
   background: linear-gradient(
       135deg,
       rgba(251, 153, 210, 0.7),
@@ -285,10 +342,12 @@ onUnmounted(() => {
       circle at top left,
       rgba(255, 255, 255, 0.4) 10%,
       transparent 50%
-    ); /* Adds a glossy highlight */
+    );
+  /* Adds a glossy highlight */
   box-shadow: inset 0 0 10px rgba(255, 255, 255, 0.109),
-    0 4px 10px rgba(0, 0, 0, 0.2); /* Inner & outer shadow for depth */
-  border: 1px solid rgba(255, 255, 255, 0.2); /* Adds glassy border */
+    0 4px 10px rgba(0, 0, 0, 0.2);
+  /* Inner & outer shadow for depth */
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  /* Adds glassy border */
 }
-
 </style>
