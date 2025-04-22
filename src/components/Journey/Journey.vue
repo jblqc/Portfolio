@@ -165,7 +165,7 @@ import simpleviaImage from "@/assets/simplevia.png";
 import icicctImage from "@/assets/icicct.png";
 import bpiImage from "@/assets/BPI.png";
 import publishImage from "@/assets/publish.png";
-import awsImage from "@/assets/aws.JPG";
+import awsImage from "@/assets/AWS.jpg";
 
 const homeStore = useHomeStore();
 const isDarkMode = computed(() => homeStore.isDarkMode);
