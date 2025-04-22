@@ -89,56 +89,58 @@
               />
             </div>
             <div class="max">
-              
+              <Text
+                v-if="event.id !== 9"
+                :text="event.description"
+                variant="subtitle-2"
+                color="dark-gray"
+                class="tracking-wider"
+              />
+              <div v-else>
                 <Text
-                  v-if="event.id !== 9"
-                  :text="event.description"
-                  variant="subtitle-2"
-                  color="dark-gray"
-                  class="tracking-wider"
-                />
-                <div v-else>
-                  <Text
-                  
                   text="Began studying for the AWS Certified Cloud Practitioner (CLF-C02) 2025 Exam using Stephan Mareek’s course, AWS-provided practice tests, free lessons, and gamified modules."
                   variant="subtitle-2"
                   color="dark-gray"
                   class="tracking-wider"
                 />
                 <div
-                      class="go-button mt-1 cursor w-50"
-                      :class="{ 'go-button-black': isDarkMode }"
-@click="openLink('https://www.canva.com/design/DAGlV5GRs1A/bxu50i9x1FnoaaGshKLvPg/view?utm_content=DAGlV5GRs1A&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h8cc76aa4ff')"                      style="display: flex; align-items: center"
-                    >  <Text
-                  
-                  text="View Lesson Certificates"
-                  variant="caption"
-                  color="dark-gray"
-                  class="tracking-wider"
-                />
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 20 20"
-                        :fill="isDarkMode ? 'white' : 'black'"
-                        width="20"
-                      >
-                        <path
-                          fill-rule="evenodd"
-                          d="M5.22 14.78a.75.75 0 0 0 1.06 0l7.22-7.22v5.69a.75.75 0 0 0 1.5 0v-7.5a.75.75 0 0 0-.75-.75h-7.5a.75.75 0 0 0 0 1.5h5.69l-7.22 7.22a.75.75 0 0 0 0 1.06Z"
-                          clip-rule="evenodd"
-                        />
-                      </svg>
-                    </div>
-                  </div>
+                  class="go-button mt-1 cursor w-50"
+                  :class="{ 'go-button-black': isDarkMode }"
+                  @click="
+                    openLink(
+                      'https://www.canva.com/design/DAGlV5GRs1A/bxu50i9x1FnoaaGshKLvPg/view?utm_content=DAGlV5GRs1A&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h8cc76aa4ff'
+                    )
+                  "
+                  style="display: flex; align-items: center"
+                >
+                  <Text
+                    text="View Lesson Certificates"
+                    variant="caption"
+                    color="dark-gray"
+                    class="tracking-wider"
+                  />
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 20 20"
+                    :fill="isDarkMode ? 'white' : 'black'"
+                    width="20"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M5.22 14.78a.75.75 0 0 0 1.06 0l7.22-7.22v5.69a.75.75 0 0 0 1.5 0v-7.5a.75.75 0 0 0-.75-.75h-7.5a.75.75 0 0 0 0 1.5h5.69l-7.22 7.22a.75.75 0 0 0 0 1.06Z"
+                      clip-rule="evenodd"
+                    />
+                  </svg>
                 </div>
+              </div>
+            </div>
 
-            <v-img
+            <img
               v-if="event.image"
               :src="event.image"
-              class="mt-2 rounded-lg"
+              class="mt-2 rounded-lg timeline-img"
               max-height="350"
               max-width="350"
-              cover
             />
           </div>
         </v-timeline-item>
@@ -174,7 +176,6 @@ const updateIsMobile = () => {
 const openLink = (url) => {
   window.open(url, "_blank");
 };
-
 
 const timelineItems = ref([
   {
@@ -275,9 +276,9 @@ const getBadgeColor = (type) => {
     conference: "red",
     research: "orange",
     competition: "cyan",
-    publication: "lime",cloud: "amber",
-certification: "yellow-darken-2",
-
+    publication: "lime",
+    cloud: "amber",
+    certification: "yellow-darken-2",
   };
   return colors[type] || "grey";
 };
@@ -298,7 +299,7 @@ const getDotColor = (labels) => {
     competition: "#BDE0FE", // Light cyan (matches "cyan")
     publication: "#D4F8B3", // Soft lime green (matches "lime")
     cloud: "#FFF4BF", // Soft yellow
-certification: "#FFE382",
+    certification: "#FFE382",
   };
 
   return labels.find((label) => colors[label])
@@ -322,6 +323,7 @@ onUnmounted(() => {
   padding: 15px;
   border-radius: 10px;
   transition: 0.3s ease-in-out;
+  height: 140%;width: 100%;
 }
 .max {
   max-width: 400px;
@@ -358,5 +360,12 @@ onUnmounted(() => {
   /* Inner & outer shadow for depth */
   border: 1px solid rgba(255, 255, 255, 0.2);
   /* Adds glassy border */
+}
+.timeline-img {
+  max-width: 550px;
+  width: 100%;
+  height: 100%;
+  max-height: 350px;
+  border-radius: 12px;
 }
 </style>
