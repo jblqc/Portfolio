@@ -54,14 +54,14 @@
                 variant="subtitle-1"
                 fontWeight="400"
                 :color="'black'"
-                class="description"
+                class="description mb-t"
               />
               <Text
                 :text="projectDetails.long_description2"
                 variant="subtitle-1"
                 fontWeight="400"
                 :color="'black'"
-                class="description"
+                class="description mb-5"
               />
               <v-container
                 class="details-card mt-3 mb-3"
@@ -157,18 +157,18 @@
         <Text text="Watch the Video" variant="subtitle-1" fontWeight="600" />
 
         <v-col cols="12" class="text-center">
-          <iframe
-            width="560"
-            height="315"
-            :src="
-              project.id === 1
-                ? 'https://drive.google.com/file/d/10t7K4qqqmtNaUIH439ZJW35s2tDcK9s1/preview'
-                : 'https://www.youtube.com/embed/4wkGtHNvngI'
-            "
-            frameborder="0"
-            allowfullscreen
-            class="design3"
-          ></iframe>
+          <div class="video-container">
+  <iframe
+    :src="
+      project.id === 1
+        ? 'https://drive.google.com/file/d/10t7K4qqqmtNaUIH439ZJW35s2tDcK9s1/preview'
+        : 'https://www.youtube.com/embed/4wkGtHNvngI'
+    "
+    frameborder="0"
+    allowfullscreen
+    class="responsive-iframe design3"
+  ></iframe>
+</div>
         </v-col>
       </v-row>
       <v-row v-if="designOneImages.length > 0">
@@ -189,7 +189,7 @@
         <img
           src="@/assets/images/project-specific-image/goodfoodbg.svg"
           alt="Loading..."
-          class="my-n2"
+    class="my-n2 responsive-goodfood-image"
         />
       </v-row>
       <v-row
@@ -223,8 +223,7 @@
       <img
         src="@/assets/images/project-specific-image/nes.png"
         alt="Project GIF"
-        width="1100"
-        height="285"
+       
         class="styled-image"
       />
     </v-row>
@@ -577,7 +576,32 @@
   .work-details {
     padding: 20px;
   }
+.video-container {
+  position: relative;
+  padding-bottom: 11.25%; /* 16:9 Aspect Ratio */
+  height: 300px;
+  overflow: hidden;
+  margin: 1rem 0;
+}
+.responsive-goodfood-image {
+  max-width: 900px; /* Default desktop size */
+  width: 100%;
+  height: auto;
+}
 
+@media (max-width: 768px) {
+  .responsive-goodfood-image {
+    max-width: 450px; /* Mobile size */
+  }
+}
+.responsive-iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+}
   .project-logo-container {
     display: flex;
     justify-content: center;
@@ -655,15 +679,15 @@
     margin-right: 8px;
   }
   .styled-image {
-    width: 1100px;
-    height: 285px;
+    width: 100%;
+    height: 100%;
     filter: drop-shadow(
       0px -10px 15px rgba(9, 255, 9, 0.7)
     ); /* Green shadow on upper part */
   }
   .styled-image2 {
-    width: 1100px;
-    height: 585px;
+    width: 100%;
+    height: 100%;
     filter: drop-shadow(0px -10px 15px rgba(165, 9, 255, 0.13));
   }
 </style>

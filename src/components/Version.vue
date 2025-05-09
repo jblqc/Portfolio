@@ -74,8 +74,10 @@
   import Text from "@/components/Reusable/Text.vue";
   
   const versions = ref([
-    { id: 1, version: "v1.1", date: "2023-24", status: "active", details: "Added Version section, Added new Sun/Moon toggle, New side navigation for mobile" },
-    { id: 2, version: "v1.0", date: "2023-24", status: "inactive", details: "Initial release, Complete profile section" },
+    { id: 1, version: "v1.1", date: "2025-04", status: "inactive", details: "Added Version section, Added new Sun/Moon toggle, New side navigation for mobile" },
+    { id: 2, version: "v1.0", date: "2025-04", status: "inactive", details: "Initial release, Complete profile section" },
+    { id: 3, version: "v1.2", date: "2025-05", status: "active", details: "Fixed UI responsieness, Added new story, Added new journy" },
+
   ]);
   
   const showModal = ref(false);

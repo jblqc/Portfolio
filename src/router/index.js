@@ -24,11 +24,10 @@ const routes = [
         name: "work-specific",
         component: () => import("@/components/WorkSection/WorkSpecific.vue"),
         props: true, // Ensure params are passed
-
       },
     ],
   },
-  
+
   {
     path: "/inquiry",
     name: "inquiry",
@@ -38,7 +37,8 @@ const routes = [
     path: "/about",
     name: "about",
     component: () => import("@/pages/About.vue"),
-  }, {
+  },
+  {
     path: "/journey",
     name: "journey",
     component: () => import("@/pages/Journey.vue"),
@@ -52,6 +52,12 @@ const routes = [
     path: "/version",
     name: "version",
     component: () => import("@/components/Version.vue"),
+  },
+  {
+    path: "/add-story",
+    name: "add-story",
+    component: () => import("@/components/Story/AddStory.vue"),
+    meta: { hidden: true },
   },
 ];
 const router = createRouter({

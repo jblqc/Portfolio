@@ -21,5 +21,19 @@ export const useStoriesStore = defineStore("stories", {
       await this.fetchStories();
       this.loading = false;
     },
+    
+    async addStory(storyData) {
+    this.loading = true;
+    const { data, error } = await supabase
+      .from('stories')
+      .insert([storyData])
+      .select();
+    
+    if (!error) {
+      this.stories.unshift(data[0]); // Add to beginning of array
+    }
+    this.loading = false;
+    return { data, error };
+  }
   },
 });

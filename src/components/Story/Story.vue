@@ -23,7 +23,7 @@
     </v-col>
   </v-row>
 
-  <v-row justify="center" class="d-flex align-center">
+  <v-row justify="center" class="d-flex align-center mt-5">
     <ButtonGradient
       text="LinkedIn"
       :iconSrc="linkedinIcon"
@@ -82,14 +82,14 @@
   <v-row justify="center" class="mb-5">
   <v-col :cols="isMobile ? 12 : 8">
     <div
-      v-for="story in stories"
+      v-for="story in sortedStories"
       :key="story.id"
       class="story-card cursor"
       @click="openLink(story.link)"
     >
       <Text :text="story.title" variant="body-1" fontWeight="600" class="mb-2" />
       <Text :text="story.caption" variant="subtitle-1" color="dark-gray" class="mb-2"/>
-      <Text :text="`${story.date} • ${story.tag}`" variant="caption" color="gray" class="mb-2" />
+      <Text :text="formattedDate(story.date) + ' • ' + story.tag" variant="caption" color="gray" class="mb-2" />
     </div>
   </v-col>
 </v-row>
@@ -112,9 +112,18 @@ import { useStoriesStore } from "@/stores/useStoriesStore"; // Import Pinia stor
 // Initialize the stories store
 const storiesStore = useStoriesStore();
 
-// Computed property to access stories from the store
-const stories = computed(() => storiesStore.stories);
+// Computed property to get sorted stories (newest first)
+const sortedStories = computed(() => {
+  return [...storiesStore.stories].sort((a, b) => {
+    return new Date(b.date) - new Date(a.date);
+  });
+});
 
+// Format date to be more readable
+const formattedDate = (dateString) => {
+  const options = { year: 'numeric', month: 'long', day: 'numeric' };
+  return new Date(dateString).toLocaleDateString(undefined, options);
+};
   onMounted(() => {
     isMobile.value = window.innerWidth <= 768; // Set initial value
     window.addEventListener("resize", updateScreenSize);
@@ -186,7 +195,7 @@ onMounted(() => {
     padding: 20px;
     filter: blur(0.4px); /* Apply initial blur */
     opacity: 0.8; /* Make it slightly faded */
-    transition: filter 0.3s ease, opacity 0.3s ease, transform 0.3s ease;
+    transition: filter 0.3s ease, opacity 0.3s ease, transform 0.3s ease;margin-top: 10px;
   }
   @media (max-width: 768px) {
   }

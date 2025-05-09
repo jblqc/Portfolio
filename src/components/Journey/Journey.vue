@@ -104,7 +104,7 @@
                   class="tracking-wider"
                 />
                 <div
-                  class="go-button mt-1 cursor w-50"
+                  class="go-button mt-1 cursor w-50 rounded-lg"
                   :class="{ 'go-button-black': isDarkMode }"
                   @click="
                     openLink(
@@ -134,7 +134,37 @@
                 </div>
               </div>
             </div>
-
+            <div class="max" v-show="event.id === 10">
+              <div
+                class="go-button mt-1 cursor w-50 rounded-lg"
+                :class="{ 'go-button-black': isDarkMode }"
+                @click="
+                  openLink(
+                    'https://www.credly.com/badges/241aee2e-073a-4aee-af8e-14b8302015ac/public_url'
+                  )
+                "
+                style="display: flex; align-items: center"
+              >
+                <Text
+                  text="View Badge"
+                  variant="caption"
+                  color="dark-gray"
+                  class="tracking-wider"
+                />
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 20 20"
+                  :fill="isDarkMode ? 'white' : 'black'"
+                  width="20"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M5.22 14.78a.75.75 0 0 0 1.06 0l7.22-7.22v5.69a.75.75 0 0 0 1.5 0v-7.5a.75.75 0 0 0-.75-.75h-7.5a.75.75 0 0 0 0 1.5h5.69l-7.22 7.22a.75.75 0 0 0 0 1.06Z"
+                    clip-rule="evenodd"
+                  />
+                </svg>
+              </div>
+            </div>
             <img
               v-if="event.image"
               :src="event.image"
@@ -166,7 +196,7 @@ import icicctImage from "@/assets/icicct.png";
 import bpiImage from "@/assets/BPI.png";
 import publishImage from "@/assets/publish.png";
 import awsImage from "@/assets/AWS.jpg";
-
+import awsCloud from "@/assets/awsCloud.png";
 const homeStore = useHomeStore();
 const isDarkMode = computed(() => homeStore.isDarkMode);
 const isMobile = ref(window.innerWidth <= 768);
@@ -251,11 +281,20 @@ const timelineItems = ref([
   },
   {
     id: 9,
-    date: "March 2025 - Present",
+    date: "March 2025 - May 2025",
     title: "Started AWS Cloud Practitioner Journey",
     labels: ["cloud", "certification"],
     description: "",
     image: awsImage,
+  },
+  {
+    id: 10,
+    date: "March 03, 2025",
+    title: "Passed the AWS Cloud Practitioner Exam!",
+    labels: ["cloud", "certification"],
+    description:
+      "I am now an AWS Certified Cloud Practitioner, and I am excited to continue my journey in the cloud computing field.",
+    image: awsCloud,
   },
 ]);
 
@@ -320,10 +359,11 @@ onUnmounted(() => {
 <style scoped>
 /* ✨ Smooth Hover Effect */
 .timeline-item .timeline-content {
-  padding: 15px;
+  padding: 5px;
   border-radius: 10px;
   transition: 0.3s ease-in-out;
-  height: 140%;width: 100%;
+  height: 140%;
+  width: 100%;
 }
 .max {
   max-width: 400px;
