@@ -5,7 +5,6 @@ const routes = [
     path: "/",
     name: "home",
     component: () => import("@/pages/HeroSection.vue"),
-    meta: { isHome: true },
   },
   {
     path: "/work",
@@ -61,27 +60,12 @@ const routes = [
     meta: { hidden: true },
   },
 ];
-
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes,
   scrollBehavior(to, from, savedPosition) {
-    // Add special handling for home route
-    if (to.meta.isHome && from.meta.isHome) {
-      return { top: 0, behavior: "instant" };
-    }
+    // Always scroll to top when navigating to a new route
     return { top: 0 };
   },
 });
-
-// Add this navigation guard
-router.beforeEach((to, from, next) => {
-  // Force reload when navigating to home from home
-  if (to.name === "home" && from.name === "home") {
-    window.location.reload();
-    return;
-  }
-  next();
-});
-
 export default router;
