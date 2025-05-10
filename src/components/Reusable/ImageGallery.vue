@@ -144,7 +144,7 @@ onUnmounted(() => {
     z-index: 5;
     top: -40px;
     width: 50%;
-    line-height: 1.9;;margin-right:;
+    line-height: 1.9;
   }
 }
   .photo-album h1 span {

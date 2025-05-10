@@ -17,12 +17,7 @@ import ProjectLogos from "@/components/HeroSection/ProjectLogos.vue"; // Fixed p
 
 const router = useRouter();
 
-onMounted(() => {
-  // This ensures the component properly mounts on initial load
-  if (router.currentRoute.value.name === 'home') {
-    console.log('HeroSection mounted as home route');
-  }
-});
+
 </script>
 
 <style scoped>

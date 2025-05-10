@@ -5,6 +5,9 @@ import path from "path";
 
 export default defineConfig({
   plugins: [vue(), vuetify({ autoImport: true })],
+  build: {
+    cssCodeSplit: false,
+  },
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "src"),
