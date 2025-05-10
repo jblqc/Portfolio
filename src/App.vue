@@ -1,80 +1,51 @@
 <template>
-  <div
-    :class="{
-      'noise-bg-dark': homeStore.isDarkMode,
-      'noise-bg-light': !homeStore.isDarkMode,
-    }"
-  >
-    <!-- Header Gradient -->
-    <img
-      src="@/assets/images/header-gradient.svg"
-      alt="Header Gradient"
-      class="header-gradient"
-    />
+  <div :class="backgroundClass">
+    <img src="@/assets/images/header-gradient.svg" alt="Header Gradient" class="header-gradient" />
     <div class="content-container">
       <NavBar />
-
-      <v-app :class="{ 'dark-mode': isDarkMode }"> <router-view /> </v-app>
+      <v-app :class="{ 'dark-mode': isDarkMode }">
+        <router-view v-slot="{ Component }">
+          <component :is="Component" />
+        </router-view>
+      </v-app>
       <Footer />
     </div>
-
-    <!-- SVG Noise Filter Definition -->
     <svg id="texture">
-      <!-- White Background to ensure a clean base -->
-
-      <!-- Noise Filter -->
       <filter id="noiseFilter">
-        <feTurbulence
-          type="fractalNoise"
-          baseFrequency="0.9"
-          numOctaves="3"
-          stitchTiles="stitch"
-        />
+        <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="3" stitchTiles="stitch" />
         <feColorMatrix type="saturate" values="0"></feColorMatrix>
       </filter>
-
-      <!-- Apply Noise Filter -->
     </svg>
-    <img
-      src="@/assets/images/footer-gradient.svg"
-      alt="Footer Gradient"
-      class="footer-gradient"
-    />
+    <img src="@/assets/images/footer-gradient.svg" alt="Footer Gradient" class="footer-gradient" />
   </div>
 </template>
+
 <script setup>
-  import { computed, onMounted } from "vue";
-  import { useHomeStore } from "@/stores/useHomeStore";
-  import NavBar from "@/components/NavBar.vue";
-  import Footer from "./components/Footer.vue";
-  const homeStore = useHomeStore();
+import { computed, onMounted } from "vue";
+import { useHomeStore } from "@/stores/useHomeStore";
+import NavBar from "@/components/NavBar.vue";
+import Footer from "@/components/Footer.vue";
 
-  const isDarkMode = computed(() => homeStore.isDarkMode);
+const homeStore = useHomeStore();
+const isDarkMode = computed(() => homeStore.isDarkMode);
+const backgroundClass = computed(() => 
+  homeStore.isDarkMode ? 'noise-bg-dark' : 'noise-bg-light'
+);
 
-  onMounted(() => {
-    // Function to load an external script
-    const loadScript = (src, callback) => {
-      const script = document.createElement("script");
-      script.src = src;
-      script.defer = true;
-      script.onload = () => {
-        console.log(`✅ Script loaded: ${src}`);
-        callback();
-      };
-      script.onerror = () => console.error(`❌ Failed to load: ${src}`);
-      document.head.appendChild(script);
-    };
+onMounted(() => {
+  // Script loading remains the same
+  const loadScript = (src, callback) => {
+    const script = document.createElement("script");
+    script.src = src;
+    script.defer = true;
+    script.onload = () => callback();
+    script.onerror = () => console.error(`Failed to load: ${src}`);
+    document.head.appendChild(script);
+  };
 
-    // Load Speed Insights from the public folder
-    loadScript("/speed-insight.js", () =>
-      console.log("✅ Speed Insights script loaded.")
-    );
-
-    // Load Custom Analytics
-    loadScript("/analytics.js", () =>
-      console.log("✅ Custom Analytics script loaded.")
-    );
-  });
+  loadScript("/speed-insight.js", () => console.log("Speed Insights loaded"));
+  loadScript("/analytics.js", () => console.log("Analytics loaded"));
+});
 </script>
 <style>
   /* Light Mode */
