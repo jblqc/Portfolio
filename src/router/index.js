@@ -3,8 +3,13 @@ import { createRouter, createWebHistory } from "vue-router";
 const routes = [
   {
     path: "/",
+    redirect: "/home",
+  },
+  // Your existing home route (keep this unchanged)
+  {
+    path: "/home",
     name: "home",
-    component: () => import("../pages/HeroSection.vue"),
+    component: () => import("@/pages/HeroSection.vue"),
   },
   {
     path: "/work",
