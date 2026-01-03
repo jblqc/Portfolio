@@ -6,18 +6,18 @@
         variant="display-2"
         fontWeight="bold"
         :gradient="'linear-gradient(90deg,#DC36FA 0%,#A167EF 35%,#609FE4 45%,#3ABFDE 55%,#04D18E 66%)'"
-        class="tracking-wider custom-font mb-5"
+        class="mb-5 tracking-wider custom-font"
       />
       <Text
         text="The linear view of some milestones and notable moments that happened so far."
         variant="title"
         fontWeight="400"
         :color="'black'"
-        class="description mb-4"
+        class="mb-4 description"
       />
     </v-col>
   </v-row>
-  <v-row class="footer-quote mt-10 mb-5">
+  <v-row class="mt-10 mb-5 footer-quote">
     <span class="decor">❧</span>
     <span class="dot">ִֶָ𓂃 ࣪˖ ִֶָ🐇་༘࿐</span>
     <span class="decor">☙</span>
@@ -61,7 +61,7 @@
               v-for="(badge, i) in event.labels"
               :key="i"
               :color="getBadgeColor(badge)"
-              class="text-caption mr-3 mb-2"
+              class="mb-2 mr-3 text-caption"
               size="x-small"
               v-if="!isDarkMode"
             >
@@ -72,7 +72,7 @@
               v-for="(badge, i) in event.labels"
               :key="'dark-' + i"
               :color="getBadgeColor(badge)"
-              class="text-caption mr-3 mb-2 dark-mode-chip"
+              class="mb-2 mr-3 text-caption dark-mode-chip"
               size="x-small"
               :style="{ backgroundColor: getBadgeColor(badge) + ' !important' }"
               v-else
@@ -104,7 +104,7 @@
                   class="tracking-wider"
                 />
                 <div
-                  class="go-button mt-1 cursor w-50 rounded-lg"
+                  class="mt-1 rounded-lg go-button cursor w-50"
                   :class="{ 'go-button-black': isDarkMode }"
                   @click="
                     openLink(
@@ -136,7 +136,7 @@
             </div>
             <div class="max" v-show="event.id === 10">
               <div
-                class="go-button mt-1 cursor w-50 rounded-lg"
+                class="mt-1 rounded-lg go-button cursor w-50"
                 :class="{ 'go-button-black': isDarkMode }"
                 @click="
                   openLink(
@@ -197,6 +197,7 @@ import bpiImage from "@/assets/BPI.png";
 import publishImage from "@/assets/publish.png";
 import awsImage from "@/assets/AWS.jpg";
 import awsCloud from "@/assets/awsCloud.png";
+import fcgesImage from "@/assets/fcgeslogo.png"
 const homeStore = useHomeStore();
 const isDarkMode = computed(() => homeStore.isDarkMode);
 const isMobile = ref(window.innerWidth <= 768);
@@ -295,6 +296,14 @@ const timelineItems = ref([
     description:
       "I am now an AWS Certified Cloud Practitioner, and I am excited to continue my journey in the cloud computing field.",
     image: awsCloud,
+  },
+  {
+    id: 11,
+    date: "July 01, 2025",
+    title: "Integration Engineer at FCGES",
+    labels: ["career", "job"],
+    description:"Integrating backend systems at FCGES to streamline subscriptions and purchases for product access.",
+    image: fcgesImage,
   },
 ]);
 

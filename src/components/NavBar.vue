@@ -14,7 +14,7 @@
           <div class="nav-links" v-show="!isMobile">
             <v-btn to="/work" class="nav-link" text>
               <div class="badge-container">
-                <span class="custom-badge">14</span>
+                <span class="custom-badge">15</span>
                 <Text text="work" variant="subtitle-1" />
               </div>
             </v-btn>
@@ -197,7 +197,7 @@
             <router-link to="/work" class="nav-links" @click="toggleMenu">
               <Text text="work" variant="subtitle-1" />
               <div class="badge-container">
-                <span class="custom-badge">14</span>
+                <span class="custom-badge">15</span>
               </div>
               <img
                 src="@/assets/images/work.svg"
