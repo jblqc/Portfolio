@@ -119,6 +119,7 @@
 	.mobile-carousel {
 		width: 100%;
 		padding: 0 1px;
+		margin-top: 8%;
 	}
 
 	.mobile-carousel-image {

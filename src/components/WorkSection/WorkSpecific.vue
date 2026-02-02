@@ -57,18 +57,22 @@
 
 					<v-row class="justify-center">
 						<v-col cols="12">
-							<Text
-								:text="projectDetails.long_description1"
-								variant="subtitle-1"
-								fontWeight="400"
-								:color="'black'"
-								class="description mb-t" />
-							<Text
-								:text="projectDetails.long_description2"
-								variant="subtitle-1"
-								fontWeight="400"
-								:color="'black'"
-								class="mb-5 description" />
+							<v-row
+								><Text
+									:text="projectDetails.long_description1"
+									variant="subtitle-1"
+									fontWeight="400"
+									:color="'black'"
+									class="my-5 description"
+							/></v-row>
+							<v-row>
+								<Text
+									:text="projectDetails.long_description2"
+									variant="subtitle-1"
+									fontWeight="400"
+									:color="'black'"
+									class="mb-5 description"
+							/></v-row>
 
 							<v-container
 								class="mt-3 mb-3 details-card"
