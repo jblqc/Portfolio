@@ -218,9 +218,8 @@
 		</container>
 
 		<FlickingCarousel :images="images">
-			<template v-slot:default="{ image }">
+			<template #default="{ image, index }">
 				<div
-					v-for="(image, index) in images"
 					:key="index"
 					class="panel">
 					<img
@@ -396,39 +395,40 @@
 		}));
 	});
 	const fileNameOf = url => {
-		const last = url.split('/').pop() || '';
-		return last.split('?')[0];
+		const clean = decodeURIComponent(url || '');
+		const last = clean.split('/').pop() || '';
+		return last.split('?')[0].split('#')[0].toLowerCase(); // ✅ normalize
 	};
 
-	const isVertical = url => fileNameOf(url).toLowerCase().includes('_v');
+	// ✅ fast + reliable lookups
+	const excludedSet = new Set(exclusionList.map(x => x.toLowerCase()));
 
-	const isExcluded = url => exclusionList.includes(fileNameOf(url));
+	// ✅ portrait = excluded files that end with _v.png
+	const isPortrait = url => {
+		const name = fileNameOf(url);
+		return excludedSet.has(name) && name.includes('_v');
+	};
+
+	// ✅ excluded = anything in the excluded list (portrait OR not)
+	const isExcluded = url => excludedSet.has(fileNameOf(url));
 
 	function hydrateImages(projectId) {
 		const all = workStore.projectImages[projectId] ?? [];
 
-		// ✅ 1) Portrait images (outside only)
-		const verticals = all.filter(isVertical);
+		const excluded = all.filter(isExcluded);
+		const carousel = all.filter(u => !isExcluded(u));
 
-		// ✅ 2) Landscape images only
-		const landscapes = all.filter(u => !isVertical(u));
+		const verticals = excluded.filter(isPortrait); // excluded + _v
+		const excludedLandscapes = excluded.filter(u => !isPortrait(u)); // excluded but not _v
 
-		// ✅ 3) Carousel: ONLY landscape + NOT excluded
-		const carousel = landscapes.filter(u => !isExcluded(u));
+		images.value = carousel; // ✅ only non-excluded
+		designTwoImages.value = verticals; // ✅ portrait outside
+		designOneImages.value = excludedLandscapes; // ✅ excluded landscape outside
 
-		// ✅ 4) Outside landscape: ONLY excluded landscape (not in carousel)
-		// (because carousel is the "non-excluded landscape" set)
-		const outsideLandscape = landscapes.filter(u => isExcluded(u));
-
-		images.value = carousel; // ✅ carousel only landscapes + non-excluded
-		designTwoImages.value = verticals; // ✅ all portrait images outside
-		designOneImages.value = outsideLandscape; // ✅ excluded landscapes only (outside)
-
-		// optional debug
-		console.log('PROJECT:', projectId);
+		console.log('ALL:', all.map(fileNameOf));
+		console.log('EXCLUDED:', excluded.map(fileNameOf));
 		console.log('VERTICAL:', verticals.map(fileNameOf));
 		console.log('CAROUSEL:', carousel.map(fileNameOf));
-		console.log('OUTSIDE LANDSCAPE:', outsideLandscape.map(fileNameOf));
 	}
 
 	function extractShadowColor() {
