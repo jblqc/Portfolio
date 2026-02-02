@@ -1,3 +1,28 @@
+<script setup>
+	import { computed } from 'vue';
+	import { useHomeStore } from '@/stores/useHomeStore';
+	import NavBar from '@/components/NavBar.vue';
+	import Footer from '@/components/Footer.vue';
+
+	import { Analytics } from '@vercel/analytics/vue';
+	import { SpeedInsights } from '@vercel/speed-insights/vue';
+
+	const homeStore = useHomeStore();
+
+	const isDarkMode = computed(() => homeStore.isDarkMode);
+	const backgroundClass = computed(() =>
+		homeStore.isDarkMode ? 'noise-bg-dark' : 'noise-bg-light',
+	);
+
+	/**
+	 * ✅ Only true when:
+	 * - production build
+	 * - deployed on Vercel
+	 */
+	const isVercelProd =
+		import.meta.env.PROD && import.meta.env.VITE_VERCEL === '1';
+</script>
+
 <template>
 	<div :class="backgroundClass">
 		<img
@@ -12,26 +37,19 @@
 
 		<div class="content-container">
 			<NavBar />
+
+			<!-- ✅ Vercel only -->
+			<Analytics v-if="isVercelProd" />
+			<SpeedInsights v-if="isVercelProd" />
+
 			<v-app :class="{ 'dark-mode': isDarkMode }">
 				<router-view v-slot="{ Component }">
 					<component :is="Component" />
 				</router-view>
 			</v-app>
+
 			<Footer />
 		</div>
-
-		<svg id="texture">
-			<filter id="noiseFilter">
-				<feTurbulence
-					type="fractalNoise"
-					baseFrequency="0.9"
-					numOctaves="3"
-					stitchTiles="stitch" />
-				<feColorMatrix
-					type="saturate"
-					values="0"></feColorMatrix>
-			</filter>
-		</svg>
 
 		<img
 			src="@/assets/images/footer-gradient.svg"
@@ -44,33 +62,6 @@
 			height="700" />
 	</div>
 </template>
-
-<script setup>
-	import { computed, onMounted } from 'vue';
-	import { useHomeStore } from '@/stores/useHomeStore';
-	import NavBar from '@/components/NavBar.vue';
-	import Footer from '@/components/Footer.vue';
-
-	const homeStore = useHomeStore();
-	const isDarkMode = computed(() => homeStore.isDarkMode);
-	const backgroundClass = computed(() =>
-		homeStore.isDarkMode ? 'noise-bg-dark' : 'noise-bg-light',
-	);
-
-	onMounted(() => {
-		const loadScript = (src, callback) => {
-			const script = document.createElement('script');
-			script.src = src;
-			script.defer = true;
-			script.onload = () => callback();
-			script.onerror = () => console.error(`Failed to load: ${src}`);
-			document.head.appendChild(script);
-		};
-
-		loadScript('/speed-insight.js', () => console.log('Speed Insights loaded'));
-		loadScript('/analytics.js', () => console.log('Analytics loaded'));
-	});
-</script>
 
 <style>
 	/* ✅ EXACTLY your CSS (unchanged) */

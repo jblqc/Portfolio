@@ -401,19 +401,16 @@
 	const fileNameOf = url => {
 		const clean = decodeURIComponent(url || '');
 		const last = clean.split('/').pop() || '';
-		return last.split('?')[0].split('#')[0].toLowerCase(); // ✅ normalize
+		return last.split('?')[0].split('#')[0].toLowerCase();
 	};
 
-	// ✅ fast + reliable lookups
 	const excludedSet = new Set(exclusionList.map(x => x.toLowerCase()));
 
-	// ✅ portrait = excluded files that end with _v.png
 	const isPortrait = url => {
 		const name = fileNameOf(url);
 		return excludedSet.has(name) && name.includes('_v');
 	};
 
-	// ✅ excluded = anything in the excluded list (portrait OR not)
 	const isExcluded = url => excludedSet.has(fileNameOf(url));
 
 	function hydrateImages(projectId) {
@@ -422,17 +419,12 @@
 		const excluded = all.filter(isExcluded);
 		const carousel = all.filter(u => !isExcluded(u));
 
-		const verticals = excluded.filter(isPortrait); // excluded + _v
-		const excludedLandscapes = excluded.filter(u => !isPortrait(u)); // excluded but not _v
+		const verticals = excluded.filter(isPortrait);
+		const excludedLandscapes = excluded.filter(u => !isPortrait(u));
 
-		images.value = carousel; // ✅ only non-excluded
-		designTwoImages.value = verticals; // ✅ portrait outside
-		designOneImages.value = excludedLandscapes; // ✅ excluded landscape outside
-
-		console.log('ALL:', all.map(fileNameOf));
-		console.log('EXCLUDED:', excluded.map(fileNameOf));
-		console.log('VERTICAL:', verticals.map(fileNameOf));
-		console.log('CAROUSEL:', carousel.map(fileNameOf));
+		images.value = carousel;
+		designTwoImages.value = verticals;
+		designOneImages.value = excludedLandscapes;
 	}
 
 	function extractShadowColor() {
