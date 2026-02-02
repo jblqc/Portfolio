@@ -6,6 +6,5 @@
 			"use": "@vercel/static-build"
 		}
 	],
-	"routes": [{ "src": "/assets/(.*)", "dest": "/assets/$1" }],
 	"rewrites": [{ "source": "/(.*)", "destination": "/" }]
 }
