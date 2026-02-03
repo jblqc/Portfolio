@@ -1,24 +1,21 @@
 <script setup>
-	import { computed } from 'vue';
+	import { computed, defineAsyncComponent } from 'vue';
 	import { useHomeStore } from '@/stores/useHomeStore';
+
 	import NavBar from '@/components/NavBar.vue';
 	import Footer from '@/components/Footer.vue';
+	const Analytics = defineAsyncComponent(() =>
+		import('@vercel/analytics/vue').then(m => m.Analytics),
+	);
 
-	import { Analytics } from '@vercel/analytics/vue';
-	import { SpeedInsights } from '@vercel/speed-insights/vue';
-
+	const SpeedInsights = defineAsyncComponent(() =>
+		import('@vercel/speed-insights/vue').then(m => m.SpeedInsights),
+	);
 	const homeStore = useHomeStore();
-
 	const isDarkMode = computed(() => homeStore.isDarkMode);
 	const backgroundClass = computed(() =>
 		homeStore.isDarkMode ? 'noise-bg-dark' : 'noise-bg-light',
 	);
-
-	/**
-	 * ✅ Only true when:
-	 * - production build
-	 * - deployed on Vercel
-	 */
 	const isVercelProd =
 		import.meta.env.PROD && import.meta.env.VITE_VERCEL === '1';
 </script>
@@ -37,8 +34,6 @@
 
 		<div class="content-container">
 			<NavBar />
-
-			<!-- ✅ Vercel only -->
 			<Analytics v-if="isVercelProd" />
 			<SpeedInsights v-if="isVercelProd" />
 
@@ -64,12 +59,10 @@
 </template>
 
 <style>
-	/* ✅ EXACTLY your CSS (unchanged) */
-	/* Light Mode */
 	.noise-bg-light {
 		width: 100%;
-		min-height: 100vh; /* ✅ Allow content to extend */
-		overflow-y: auto; /* ✅ Enable scrolling */
+		min-height: 100vh;
+		overflow-y: hidden;
 		background: linear-gradient(
 			to bottom,
 			rgba(255, 255, 255, 0.382),
@@ -88,7 +81,7 @@
 	.noise-bg-dark {
 		width: 100%;
 		min-height: 100vh; /* ✅ Allow content to extend */
-		overflow-y: auto; /* ✅ Enable scrolling */
+		overflow-y: hidden; /* ✅ Enable scrolling */
 		background: linear-gradient(to top, rgba(0, 0, 0, 0.918), rgb(0, 0, 0));
 	}
 	/* Light Mode Noise */
@@ -101,7 +94,7 @@
 		pointer-events: none;
 		min-height: 100vh; /* Allow content to expand */
 		overflow: auto; /* Allow scrolling */
-		background: url('https://grainy-gradients.vercel.app/noise.svg');
+		background: url('@/assets/noise.svg');
 		mix-blend-mode: multiply;
 		filter: contrast(180%) brightness(120%);
 		opacity: 0.2;
@@ -117,7 +110,7 @@
 		pointer-events: none;
 		min-height: 100vh;
 		overflow: auto;
-		background: url('https://grainy-gradients.vercel.app/noise.svg');
+		background: url('@/assets/noise.svg');
 		mix-blend-mode: screen;
 		filter: contrast(250%) brightness(50%);
 		opacity: 0.15;

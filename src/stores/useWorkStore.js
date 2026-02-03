@@ -2,8 +2,6 @@ import { defineStore } from 'pinia';
 import { supabase } from '@/lib/supabase';
 
 const SUPABASE_STORAGE_URL = import.meta.env.VITE_SUPABASE_STORAGE_URL;
-
-// ✅ EXACT match to your real public path
 const PROJECT_IMAGES_BASE = `${SUPABASE_STORAGE_URL}/project-image/project-specific/`;
 
 export const useWorkStore = defineStore('work', {
@@ -11,7 +9,7 @@ export const useWorkStore = defineStore('work', {
 		categories: [],
 		projects: [],
 		workSpecific: [],
-		projectImages: {}, // { [projectId]: string[] }
+		projectImages: {},
 		loading: false,
 		loaded: false,
 	}),
