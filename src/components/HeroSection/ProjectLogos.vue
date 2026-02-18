@@ -1,161 +1,158 @@
 <template>
-  <div class="marquee-container">
-    <!-- "Featured by" Title (Only appears on hover) -->
-    <div class="marquee-title">Projects done and involved.</div>
+	<div class="marquee-container">
+		<!-- "Featured by" Title (Only appears on hover) -->
+		<div class="marquee-title">Projects done and involved.</div>
 
-    <!-- Logos Section (Blurs on Hover) -->
-    <div
-      class="marquee"
-      @mouseover="isHovered = true"
-      @mouseleave="isHovered = false"
-    >
-      <div class="marquee-inner">
-        <div
-          v-for="(tech, index) in repeatedTechnologies"
-          :key="index"
-          class="logo-wrapper"
-        >
-          <img
-            :src="tech.logo"
-            :alt="tech.name"
-            class="logo"
-            :class="{
-              'tailwind-logo': tech.name === 'Tailwind',
-              'pinia-logo': tech.name === 'Pinia',
-              'figma-logo': tech.name === 'Figma',
-            }"
-          />
-        </div>
-      </div>
-    </div>
-  </div>
+		<!-- Logos Section (Blurs on Hover) -->
+		<div
+			class="marquee"
+			@mouseover="isHovered = true"
+			@mouseleave="isHovered = false">
+			<div class="marquee-inner">
+				<div
+					v-for="(tech, index) in repeatedTechnologies"
+					:key="index"
+					class="logo-wrapper">
+					<img
+						:src="tech.logo"
+						:alt="tech.name"
+						class="logo"
+						:class="{
+							'tailwind-logo': tech.name === 'Tailwind',
+							'pinia-logo': tech.name === 'Pinia',
+							'figma-logo': tech.name === 'Figma',
+						}" />
+				</div>
+			</div>
+		</div>
+	</div>
 </template>
 
 <script setup>
-  import { ref } from "vue";
+	import { ref } from 'vue';
 
-  const technologies = [
-    {
-      name: "eARMSv2 ",
-      logo: new URL("@/assets/images/eARMS.png", import.meta.url).href,
-    },
-    {
-      name: "MakaTurismo",
-      logo: new URL("@/assets/images/makaturismo.png", import.meta.url).href,
-    },
-    {
-      name: "NecessiPick",
-      logo: new URL("@/assets/images/necessipickH.png", import.meta.url).href,
-    },
-    {
-      name: "Fading Light Roleplay",
-      logo: new URL("@/assets/images/fade.png", import.meta.url).href,
-    },
-  ];
+	const technologies = [
+		{
+			name: 'eARMSv2 ',
+			logo: new URL('@/assets/icons/eARMS.svg', import.meta.url).href,
+		},
+		{
+			name: 'MakaTurismo',
+			logo: new URL('@/assets/icons/makaturismo.svg', import.meta.url).href,
+		},
+		{
+			name: 'NecessiPick',
+			logo: new URL('@/assets/icons/necessipickH.svg', import.meta.url).href,
+		},
+		{
+			name: 'Fading Light Roleplay',
+			logo: new URL('@/assets/icons/fade.svg', import.meta.url).href,
+		},
+	];
 
-  // Repeat technologies multiple times for seamless looping
-  const repeatedTechnologies = [...technologies];
+	// Repeat technologies multiple times for seamless looping
+	const repeatedTechnologies = [...technologies];
 
-  const isHovered = ref(false); // Track hover state
+	const isHovered = ref(false); // Track hover state
 </script>
 
 <style scoped>
-  /* 📌 MARQUEE CONTAINER */
-  .marquee-container {
-    position: relative;
-    width: 100%;
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
+	/* 📌 MARQUEE CONTAINER */
+	.marquee-container {
+		position: relative;
+		width: 100%;
+		text-align: center;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+	}
 
-  /* 📌 "Featured by" TITLE */
-  .marquee-title {
-    position: absolute;
-    top: 56%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: rem;
-    font-weight: bold;
-    background: linear-gradient(90deg, #00c6ff, #0072ff); /* Gradient Color */
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    z-index: 10;
-    opacity: 0;
-  }
+	/* 📌 "Featured by" TITLE */
+	.marquee-title {
+		position: absolute;
+		top: 56%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		font-size: rem;
+		font-weight: bold;
+		background: linear-gradient(90deg, #00c6ff, #0072ff); /* Gradient Color */
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+		background-clip: text;
+		z-index: 10;
+		opacity: 0;
+	}
 
-  /* 📌 Show "Featured by" text only on hover */
-  .marquee-container:hover .marquee-title {
-    opacity: 1;
-    transition: filter 0.3s ease-in-out;
-  }
+	/* 📌 Show "Featured by" text only on hover */
+	.marquee-container:hover .marquee-title {
+		opacity: 1;
+		transition: filter 0.3s ease-in-out;
+	}
 
-  /* 📌 MARQUEE (Logos Section) */
-  .marquee {
-    overflow: hidden;
-    position: relative;
-    width: 100%;
-    padding-top: 2rem;
-    transition: filter 0.3s ease-in-out;
-  }
+	/* 📌 MARQUEE (Logos Section) */
+	.marquee {
+		overflow: hidden;
+		position: relative;
+		width: 100%;
+		padding-top: 2rem;
+		transition: filter 0.3s ease-in-out;
+	}
 
-  /* 📌 Blur Effect (STRONGER BLUR to match reference) */
-  .marquee-container:hover .marquee {
-    filter: blur(10px) brightness(0.9);
-    transform: scale(0.9); /* Scales content down to 90% */
-    transition: transform 0.3s ease-in-out;
-  }
+	/* 📌 Blur Effect (STRONGER BLUR to match reference) */
+	.marquee-container:hover .marquee {
+		filter: blur(10px) brightness(0.9);
+		transform: scale(0.9); /* Scales content down to 90% */
+		transition: transform 0.3s ease-in-out;
+	}
 
-  /* 📌 SCROLLING ANIMATION */
-  .marquee-inner {
-    display: flex;
-    gap: 10px;
-    width: max-content;
-  }
+	/* 📌 SCROLLING ANIMATION */
+	.marquee-inner {
+		display: flex;
+		gap: 10px;
+		width: max-content;
+	}
 
-  /* 📌 LOGO STYLING */
-  .logo-wrapper {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
+	/* 📌 LOGO STYLING */
+	.logo-wrapper {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
 
-  .logo {
-    height: 150px;
-    width: 170px;
-    object-fit: contain;
-    filter: grayscale(100%);
-    opacity: 0.8;
-    transition: opacity 0.3s ease-in-out;
-  }
+	.logo {
+		height: 150px;
+		width: 170px;
+		object-fit: contain;
+		filter: grayscale(100%);
+		opacity: 0.8;
+		transition: opacity 0.3s ease-in-out;
+	}
 
-  /* Smaller Logo Fixes */
-  .pinia-logo {
-    height: 30px;
-    width: auto;
-  }
-  .figma-logo {
-    height: 18px;
-  }
-  .tailwind-logo {
-    height: 50px;
-    width: 90px;
-  }
+	/* Smaller Logo Fixes */
+	.pinia-logo {
+		height: 30px;
+		width: auto;
+	}
+	.figma-logo {
+		height: 18px;
+	}
+	.tailwind-logo {
+		height: 50px;
+		width: 90px;
+	}
 
-  /* Brighten logos slightly when hovered */
-  .logo-wrapper:hover .logo {
-    opacity: 1;
-  }
+	/* Brighten logos slightly when hovered */
+	.logo-wrapper:hover .logo {
+		opacity: 1;
+	}
 
-  /* 📌 Smooth Scrolling Effect */
-  @keyframes scroll {
-    from {
-      transform: translateX(0);
-    }
-    to {
-      transform: translateX(-50%);
-    }
-  }
+	/* 📌 Smooth Scrolling Effect */
+	@keyframes scroll {
+		from {
+			transform: translateX(0);
+		}
+		to {
+			transform: translateX(-50%);
+		}
+	}
 </style>

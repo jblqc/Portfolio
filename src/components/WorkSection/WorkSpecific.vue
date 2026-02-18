@@ -147,7 +147,7 @@
 								class="mt-5"
 								v-if="project.title === 'F4S: Fingerprint for Success'">
 								<img
-									src="@/assets/images/project-specific-image/f4s1.png"
+									src="@/assets/images/f4s1.png"
 									alt="Project GIF"
 									class="styled-image2" />
 							</v-row>
@@ -198,7 +198,7 @@
 				justify="center"
 				v-if="project.title === 'Good Food'">
 				<img
-					src="@/assets/images/project-specific-image/goodfoodbg.svg"
+					src="@/assets/images/goodfoodbg.svg"
 					alt="Loading..."
 					class="my-n2 responsive-goodfood-image" />
 			</v-row>
@@ -240,7 +240,7 @@
 			class="mt-5"
 			v-if="project.title === 'NecessiPick'">
 			<img
-				src="@/assets/images/project-specific-image/nes.png"
+				src="@/assets/images/nes.png"
 				alt="Project GIF"
 				class="styled-image" />
 		</v-row>

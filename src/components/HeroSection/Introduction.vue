@@ -5,7 +5,7 @@
 				><p class="flex custom-font mb-n4">
 					Hi, I'm
 					<img
-						src="@/assets/images/jen.png"
+						src="@/assets/icons/jen.svg"
 						alt="Profile Picture"
 						width="100"
 						height="100"
@@ -28,7 +28,7 @@
 					target="_blank"
 					class="gap-2 d-flex align-center link-style">
 					<img
-						src="@/assets/behance.svg"
+						src="@/assets/icons/behance.svg"
 						alt="Behance"
 						width="18"
 						height="20"
@@ -45,7 +45,7 @@
 					target="_blank"
 					class="gap-2 d-flex align-center text-decoration-none link-style">
 					<img
-						src="@/assets/github.svg"
+						src="@/assets/icons/github.svg"
 						alt="GitHub"
 						width="22"
 						height="30"
@@ -62,7 +62,7 @@
 					target="_blank"
 					class="gap-2 d-flex align-center text-decoration-none link-style">
 					<img
-						src="@/assets/instagram.svg"
+						src="@/assets/icons/instagram.svg"
 						alt="Instagram"
 						width="16"
 						height="20"
@@ -79,7 +79,7 @@
 					target="_blank"
 					class="gap-2 d-flex align-center text-decoration-none link-style">
 					<img
-						src="@/assets/linkedin.svg"
+						src="@/assets/icons/linkedin.svg"
 						alt="LinkedIn"
 						width="18"
 						height="20"

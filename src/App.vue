@@ -94,7 +94,7 @@
 		pointer-events: none;
 		min-height: 100vh; /* Allow content to expand */
 		overflow: auto; /* Allow scrolling */
-		background: url('@/assets/noise.svg');
+		background: url('@/assets/icons/noise.svg');
 		mix-blend-mode: multiply;
 		filter: contrast(180%) brightness(120%);
 		opacity: 0.2;
@@ -110,7 +110,7 @@
 		pointer-events: none;
 		min-height: 100vh;
 		overflow: auto;
-		background: url('@/assets/noise.svg');
+		background: url('@/assets/icons/noise.svg');
 		mix-blend-mode: screen;
 		filter: contrast(250%) brightness(50%);
 		opacity: 0.15;

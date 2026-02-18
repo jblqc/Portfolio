@@ -4,7 +4,7 @@
 			<v-toolbar-items class="d-flex">
 				<router-link to="/">
 					<img
-						src="@/assets/images/Jenny2.svg"
+						src="@/assets/icons/Jenny2.svg"
 						alt="Logo"
 						class="w-28 img-logo" />
 				</router-link>
@@ -160,7 +160,7 @@
 					<!-- First Column: Profile Picture -->
 					<div class="profile-picture">
 						<img
-							src="@/assets/images/jen.png"
+							src="@/assets/icons/jen.svg"
 							alt="Profile Picture"
 							class="profile-img" />
 					</div>
@@ -168,7 +168,7 @@
 					<!-- Second Column: Logo, Name, and Caption -->
 					<div class="profile-details">
 						<img
-							src="@/assets/images/Jenny2.svg"
+							src="@/assets/icons/Jenny2.svg"
 							alt="Logo"
 							class="mb-n5 ml-n4" />
 						<Text
@@ -195,7 +195,7 @@
 							<Text
 								text="home"
 								variant="subtitle-1" /><img
-								src="@/assets/images/home.svg"
+								src="@/assets/icons/home.svg"
 								alt="Work Icon"
 								class="nav-icon" />
 						</router-link>
@@ -212,7 +212,7 @@
 								<span class="custom-badge">15</span>
 							</div>
 							<img
-								src="@/assets/images/work.svg"
+								src="@/assets/icons/work.svg"
 								alt="Work Icon"
 								class="nav-icon" />
 						</router-link>
@@ -225,7 +225,6 @@
 							<Text
 								text="about"
 								variant="subtitle-1" /><img
-								src="@/assets/images/about.svg"
 								alt="Work Icon"
 								class="nav-icon" />
 						</router-link>
@@ -241,7 +240,7 @@
 								fontWeight="bold"
 								:gradient="'linear-gradient(90deg, #5b7fff, #f44f8a)'"
 								class="" /><img
-								src="@/assets/images/timeline.svg"
+								src="@/assets/icons/timeline.svg"
 								alt="Work Icon"
 								class="nav-icon"
 						/></router-link>
@@ -255,7 +254,7 @@
 								text="story"
 								variant="subtitle-1" />
 							<img
-								src="@/assets/images/story.svg"
+								src="@/assets/icons/story.svg"
 								alt="Work Icon"
 								class="nav-icon" />
 						</router-link>
